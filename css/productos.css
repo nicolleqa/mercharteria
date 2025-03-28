@@ -128,11 +128,12 @@ html {
         padding: 15px;
         border-radius: 10px;
         box-shadow: 0 4px 6px rgb(100, 178, 192);
-        
+        height: 468px;
       }
     
       .producto img {
         max-width: 18pc;
+        width: 100%;
         height: 18pc;
         border-radius: 5px;
       }
