@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Merch Arteria - Tu Tienda de Merchandising</title>
+    <title>Arteria Merch - Tu Tienda de Merchandising</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
     <link
@@ -17,7 +17,7 @@
     <header>
       <div class="logo">
         <img src="img/logo.png" alt="Merch Pro" />
-        <h1>Merch Arteria</h1>
+        <h1>Arteria Merch</h1>
       </div>
     
       <!-- Ícono Menú Hamburguesa -->
@@ -50,21 +50,18 @@
   <div class="carousel">
     <div class="carousel-container">
         <div class="carousel-item">
-            <img src="https://media.glamour.mx/photos/64c80d793262fd0ceba732a1/16:9/w_2560%2Cc_limit/merch.jpg">
-            <div class="carousel-text">MERCH ARTERIAA</div>
+            <img src="img/slider1.svg">
+            
         </div>
         <div class="carousel-item">
-            <img src="https://blog.discmakers.com/wp-content/uploads/2023/08/MerchIdeas_Feature.jpg">
-            <div class="carousel-text">MERCH ARTERIA</div>
+            <img src="img/slider2.svg">
+            
         </div>
         <div class="carousel-item">
-            <img src="https://media.pitchfork.com/photos/60677bf1291d33c5c2786ff4/2:1/w_2560%2Cc_limit/merch%2520wall%2520copy.png">
-            <div class="carousel-text">MERCH ARTERIA</div>
+            <img src="img/slider3.svg">
+            
         </div>
-        <div class="carousel-item">
-            <img src="https://parafans.com.es/wp-content/uploads/Camisetas-de-cantantes-famosos-para-ir-a-conciertos.jpg">
-            <div class="carousel-text">MERCH ARTERIA</div>
-        </div>
+    
     </div>
 </div>
   
@@ -113,6 +110,61 @@
         
       </div>
     </section>
+
+    <section class="product-slider-section">
+      <h2>Todo para los fans de las pelis & series</h2>
+      <div class="products-slider-container">
+        <button class="slider-arrow prev-arrow">&#10094;</button>
+        <div class="products-slider">
+          <div class="slider-row">
+            <div class="product-card">
+              <img src="img/colec1.jpg" alt="Guardianes de la Galaxia">
+              <h3>Guardianes de la Galaxia</h3>
+              <button class="discover-btn">¡Descubre más ahora!</button>
+            </div>
+            <div class="product-card">
+              <img src="img/colec2.jpg" alt="Spiderman">
+              <h3>Spiderman</h3>
+              <button class="discover-btn">¡Descubre más ahora!</button>
+            </div>
+            <div class="product-card">
+              <img src="img/colec3.jpg" alt="Deadpool">
+              <h3>Deadpool</h3>
+              <button class="discover-btn">¡Descubre más ahora!</button>
+            </div>
+            <div class="product-card">
+              <img src="img/colec4.jpg" alt="The Boys">
+              <h3>The Boys</h3>
+              <button class="discover-btn">¡Descubre más ahora!</button>
+            </div>
+          </div>
+          <div class="slider-row">
+            <div class="product-card">
+              <img src="img/colec5.jpg" alt="Dark">
+              <h3>Dark</h3>
+              <button class="discover-btn">¡Descubre más ahora!</button>
+            </div>
+            <div class="product-card">
+              <img src="img/colec6.jpeg" alt="Squid Games">
+              <h3>Squid Games</h3>
+              <button class="discover-btn">¡Descubre más ahora!</button>
+            </div>
+            <div class="product-card">
+              <img src="img/colec7.jpg" alt="Stranger Things">
+              <h3>Stranger Things</h3>
+              <button class="discover-btn">¡Descubre más ahora!</button>
+            </div>
+            <div class="product-card">
+              <img src="img/colec8.jpg" alt="Friends">
+              <h3>Friends</h3>
+              <button class="discover-btn">¡Descubre más ahora!</button>
+            </div>
+          </div>
+        </div>
+        <button class="slider-arrow next-arrow">&#10095;</button>
+      </div>
+    </section>
+    
 
     <section class="about-us" id="nosotros">
       <div class="about-content">
@@ -197,7 +249,7 @@
     document.getElementById("nav-links").classList.toggle("active");
   });
   
-  // Cierra el menú cuando se hace clic en un enlace
+ 
   document.querySelectorAll("#nav-links li a").forEach(link => {
     link.addEventListener("click", () => {
       document.getElementById("nav-links").classList.remove("active");
@@ -205,8 +257,56 @@
   });
 </script>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  const slider = document.querySelector('.products-slider');
+  const prevBtn = document.querySelector('.prev-arrow');
+  const nextBtn = document.querySelector('.next-arrow');
+  const sliderRows = document.querySelectorAll('.slider-row');
+  let currentIndex = 0;
+  const totalSlides = sliderRows.length;
+
+  
+  sliderRows.forEach(row => {
+    row.style.minWidth = '100%';
+    row.style.width = '100%';
+  });
+
+  
+  function updateSlider() {
+    const offset = -currentIndex * 100;
+    slider.style.transform = `translateX(${offset}%)`; 
+    slider.style.transition = 'transform 0.5s ease-in-out';
+
+    
+    prevBtn.style.visibility = currentIndex === 0 ? 'hidden' : 'visible';
+    nextBtn.style.visibility = currentIndex === totalSlides - 1 ? 'hidden' : 'visible';
+  }
+
+  
+  prevBtn.addEventListener('click', () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateSlider();
+    }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (currentIndex < totalSlides - 1) {
+      currentIndex++;
+      updateSlider();
+    }
+  });
+
+
+  updateSlider();
+
+  
+  slider.style.display = 'flex';
+  slider.style.flexWrap = 'nowrap';
+});
+
+  </script>
+  
   </body>
 </html>
-
-
-
