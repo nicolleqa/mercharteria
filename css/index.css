@@ -11,65 +11,6 @@ body {
   }
 
 
-  /* .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: navy;
-    padding: 15px;
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-}
-
-.nav-links li a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    transition: transform 0.3s, color 0.3s;
-}
-
-.nav-links li a:hover {
-    transform: scale(1.1);
-    color: lightblue;
-}
-
-.auth-buttons {
-    display: flex;
-    gap: 10px;
-}
-
-.register-btn, .login-btn {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 20px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.register-btn {
-    background-color: #ffcc00;
-    color: black;
-}
-
-.register-btn:hover {
-    background-color: #ffdd44;
-    transform: scale(1.1);
-}
-
-.login-btn {
-    background-color: white;
-    color: navy;
-}
-
-.login-btn:hover {
-    background-color: lightgray;
-    transform: scale(1.1);
-} */
 
 
 /* ---- ESTILOS GENERALES ---- */
