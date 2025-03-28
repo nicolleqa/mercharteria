@@ -333,7 +333,7 @@ nav ul li a:hover::after {
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgb(100, 178, 192);
-    
+    height: 470px;
   }
 
   .producto img {
