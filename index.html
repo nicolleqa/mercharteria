@@ -20,46 +20,10 @@
         <img src="img/logo.png" alt="Merch Pro" />
         <h1>Merch Arteria</h1>
       </div>
-      <nav>
-        <ul>
-          <li><a href="index.html">Inicio</a></li>
-          <li><a href="productos.html">Productos</a></li>
-          <li><a href="#nosotros">Nosotros</a></li>
-          <li><a href="#testimonios">Testimonios</a></li>
-          <li><a href="#contacto">Contacto</a></li>
-        </ul>
-      </nav>
-      <div class="login-container">
-        <img src="img/perfil.png" alt="Usuario" class="login-icon">
-        <a href="#" class="login-link">Iniciar Sesión</a>
-      </div>    
-      <div class="registro-container">
-        <img src="img/perfil.png" alt="Usuario" class="login-icon">
-        <a href="#" class="login-link">Registrate</a>
-      </div>  
-    </header>
-
-    <div class="carousel">
-      <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
-      <div class="carousel-container">
-          <img src="https://media.glamour.mx/photos/64c80d793262fd0ceba732a1/16:9/w_2560%2Cc_limit/merch.jpg" class="carousel-slide">
-      </div>
-      <div class="carousel-container">
-        <img src="x" class="carousel-slide">
-    </div>
-    <div class="carousel-container">
-      <img src="x" class="carousel-slide">
-  </div>
-      <button class="next" onclick="moveSlide(1)">&#10095;</button>
-  </div>
-  <div class="carousel-indicators">
-      <span class="dot active" onclick="currentSlide(0)"></span>
-      <span class="dot" onclick="currentSlide(1)"></span>
-      <span class="dot" onclick="currentSlide(2)"></span>
-  </div>
-  
-  
-
+    
+      <!-- Ícono Menú Hamburguesa -->
+      <div class="menu-icon" id="menu-btn">☰</div>
+ 
     <section id="productos">
       <center><h2>Nuestros Productos exclusivos</h2></center>
       <div class="productos-container">
@@ -164,21 +128,39 @@
       <p class="footer-copy">&copy; 2024 Merch Arteria</p>
   </footer>
 
+
   <script>
-      $(document).ready(function(){
-          $('.carousel').slick({
-              autoplay: true,
-              autoplaySpeed: 3000,
-              dots: true,
-              arrows: true,
-              infinite: true,
-              slidesToShow: 1,
-              slidesToScroll: 1,
-              adaptiveHeight: true
-          });
+    $(document).ready(function(){
+      $('.carousel-container').slick({
+        dots: false,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        arrows: true,
+        prevArrow: '<button class="prev">&#10094;</button>',
+        nextArrow: '<button class="next">&#10095;</button>'
       });
-
-
+    });
   </script>
+
+  <script>
+  document.getElementById("menu-btn").addEventListener("click", function () {
+    document.getElementById("nav-links").classList.toggle("active");
+  });
+  
+  // Cierra el menú cuando se hace clic en un enlace
+  document.querySelectorAll("#nav-links li a").forEach(link => {
+    link.addEventListener("click", () => {
+      document.getElementById("nav-links").classList.remove("active");
+    });
+  });
+</script>
+
   </body>
 </html>
+
+
+
