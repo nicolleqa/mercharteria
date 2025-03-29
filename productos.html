@@ -6,37 +6,43 @@
     <title>Merch Arteria - Tu Tienda de Merchandising</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css"/>
     <link rel="icon" type="logo.pmg" href="img/logo.png">
     <link rel="stylesheet" href="css/productos.css" />
   </head>
+
   <body>
     <header>
       <div class="logo">
         <img src="img/logo.png" alt="Merch Pro" />
-        <h1>Merch Arteria</h1>
+        <h1>Arteria Merch</h1>
       </div>
+    
+      <!-- Ícono Menú Hamburguesa -->
+      <div class="menu-icon" id="menu-btn">☰</div>
+    
       <nav>
-        <ul>
+        <ul id="nav-links">
           <li><a href="index.html">Inicio</a></li>
           <li><a href="productos.html">Productos</a></li>
           <li><a href="#contacto">Contacto</a></li>
         </ul>
       </nav>
-      <!-- ------------------- -->
-      <div class="login-container">
-        <img src="img/perfil.png" alt="Usuario" class="login-icon" />
-        <a href="#" class="login-link">Iniciar Sesión</a>
-      </div>
-      <div class="registro-container">
-        <img src="img/perfil.png" alt="Usuario" class="login-icon" />
-        <a href="#" class="login-link">Registrate</a>
-      </div>
+    
+      <!-- Login y Registro -->
+      <div class="user-options">
+        <div class="login-container">
+          <img src="img/perfil.png" alt="Usuario" class="login-icon">
+          <a href="#" class="login-link">Iniciar Sesión</a>
+        </div>
+        <div class="registro-container">
+          <img src="img/perfil.png" alt="Usuario" class="login-icon">
+          <a href="#" class="login-link">Registrate</a>
+        </div>
+      </div>  
     </header>
-    <!-- ----------------------------- -->
+
+<br><br><br><br><br><br>
     <section id="productos">
       <center><h2>Nuestros Productos !!!!</h2></center>
       <div class="productos-container">
@@ -330,20 +336,33 @@
             <span>$39.99</span>
           </div>
         </a>
+
+        <a href="" style="text-decoration: none; color: black">
+          <div class="producto">
+            <img
+              src="https://cdnx.jumpseller.com/gen-wave1/image/31575695/resize/360/360?1704993082"
+              alt="Hoodie Premium"
+            />
+            <h3>Polera Manga Corta</h3>
+            <p>Suave y abrigador, ideal para cualquier temporada.</p>
+            <span>$39.99</span>
+          </div>
+        </a>
       </div>
     </section>
 
-    <!-- ----------------------------------------- -->
-    <footer>
+    <footer class="custom-footer">
       <div class="footer-container">
-        <div class="footer-section">
-          <h3>Contacto</h3>
-          <p>Teléfono: +51 987 654 321</p>
-          <p>Email: mercharteria@gmail.com</p>
-          <p>Dirección: Av. Comercio 123, Lima, Perú</p>
+        <div class="footer-contact">
+          <p>+51 987 654 321</p>
+          <p>mercharteria@gmail.com</p>
+          <p>Av. Comercio 123, Lima, Perú</p>
+        </div>
+        <div class="footer-copyright">
+          <p>GRUPO VERDE © 2025</p>
         </div>
       </div>
-      <p class="footer-copy">&copy; 2024 Merch Arteria</p>
     </footer>
+
   </body>
 </html>

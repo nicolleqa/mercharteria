@@ -11,17 +11,39 @@ html {
     }
   
     header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #050653;
+      color: white;
+      padding: 15px 30px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+      .logo {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        background: #050653;
-        color: white;
-        padding: 15px 30px;
       }
     
       .logo img {
         height: 50px;
         margin-right: 10px;
+      }
+
+      .menu-icon {
+        display: none;
+        font-size: 28px;
+        cursor: pointer;
+        color: white;
+      }
+
+      /* LOGIN & REGISTRO */
+        .user-options {
+         display: flex;
+         gap: 15px;
       }
     
       .login-container , .registro-container{
@@ -32,15 +54,17 @@ html {
       padding: 6px 12px;
       border-radius: 20px;
       transition: background 0.3s ease;
-      }
+      position: relative;
+      left: -90px;
+    }
     
       .login-container:hover {
-      background: rgba(6, 115, 148, 0.438);
+        background: rgba(6, 115, 148, 0.438);
       }
     
       .registro-container:hover {
         background: rgba(150, 10, 10, 0.2);
-        }
+      }
     
       .login-icon {
       width: 32px;
@@ -139,10 +163,78 @@ html {
       }
     /* ---------------------------------- */
 
-    footer {
-        text-align: center;
-        padding: 15px;
-        background: #050653;
-        color: white;
-        margin-top: 20px;
-      }
+    
+.custom-footer {
+  background: #050653;
+  color: white;
+  padding: 30px 0;
+  font-family: Arial, sans-serif;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.footer-contact p {
+  margin: 5px 0;
+  font-size: 16px;
+  text-align: left;
+}
+
+.footer-copyright p {
+  font-weight: bold;
+  font-size: 16px;
+  text-align: right;
+}
+
+/* ESTILOS RESPONSIVE */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center !important;
+  }
+  
+  .footer-contact p,
+  .footer-copyright p {
+    text-align: center !important;
+    margin: 3px 0;
+  }
+}
+      
+
+@media (max-width: 768px) {
+  .menu-icon {
+    display: block;
+  }
+
+  nav ul {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: #050653;
+    text-align: center;
+    padding: 10px 0;
+    transition: all 0.3s ease-in-out;
+  }
+
+  nav ul.active {
+    display: flex;
+  }
+
+  nav ul li {
+    margin: 10px 0;
+  }
+
+  .user-options {
+    display: none; 
+  }
+}
