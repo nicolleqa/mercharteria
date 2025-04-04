@@ -1,0 +1,20 @@
+@model List<mercharteria.Models.Producto>
+@{
+    ViewData["Title"] = "Productos";
+}
+<br><br><br><br><br><br>
+<section id="productos">
+    <center><h2>Nuestros Productos</h2></center>
+        <div class="productos-container">
+            @foreach (var producto in Model)
+            {
+                <div class="producto">
+                    <img src="@producto.ImagenUrl" alt="@producto.Nombre" />
+                    <h3>@producto.Nombre</h3>
+                    <p>@producto.Descripcion</p>
+                    <span>@producto.Precio.ToString("C")</span>
+                </div>
+            }
+        </div>
+</section>
+  
