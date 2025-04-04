@@ -8,16 +8,14 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/mercharteria.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/productos.css" />
-
-    
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="color: white;">Arteria Merch</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" 
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
@@ -30,6 +28,20 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy" style="color: white;">Privacy</a>
+                        </li>
+                        @* contador *@
+                        @using mercharteria.Models
+                        @using mercharteria.Extensions
+                        @using Newtonsoft.Json
+                        @{
+                            var cart = Context.Session.GetObject<List<CartItem>>("Cart") ?? new List<CartItem>();
+                            int totalItems = cart.Sum(c => c.Cantidad);
+                        }
+                        <li class="nav-item">
+                            
+                            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#cartModal" style="color: white;">
+                                <i class="fa fa-shopping-cart"></i> Carrito (@totalItems)
+                            </a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -48,6 +60,10 @@
             &copy; 2025 - mercharteria - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
+
+    @await Html.PartialAsync("_CartPartial", Context.Session.GetObject<List<mercharteria.Models.CartItem>>("Cart") ?? new List<mercharteria.Models.CartItem>())
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
