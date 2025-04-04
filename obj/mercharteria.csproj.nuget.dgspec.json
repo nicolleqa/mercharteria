@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\usuario\\Desktop\\Universidad\\programacion\\mercharteria\\mercharteria.csproj": {}
+    "C:\\Users\\ABRAHAM\\Documents\\SEXTO CICLO USMP\\PROGRAMACIÓN I\\AVANCE-PROYECTO\\mercharteria\\mercharteria.csproj": {}
   },
   "projects": {
-    "C:\\Users\\usuario\\Desktop\\Universidad\\programacion\\mercharteria\\mercharteria.csproj": {
+    "C:\\Users\\ABRAHAM\\Documents\\SEXTO CICLO USMP\\PROGRAMACIÓN I\\AVANCE-PROYECTO\\mercharteria\\mercharteria.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\usuario\\Desktop\\Universidad\\programacion\\mercharteria\\mercharteria.csproj",
+        "projectUniqueName": "C:\\Users\\ABRAHAM\\Documents\\SEXTO CICLO USMP\\PROGRAMACIÓN I\\AVANCE-PROYECTO\\mercharteria\\mercharteria.csproj",
         "projectName": "mercharteria",
-        "projectPath": "C:\\Users\\usuario\\Desktop\\Universidad\\programacion\\mercharteria\\mercharteria.csproj",
-        "packagesPath": "C:\\Users\\usuario\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\usuario\\Desktop\\Universidad\\programacion\\mercharteria\\obj\\",
+        "projectPath": "C:\\Users\\ABRAHAM\\Documents\\SEXTO CICLO USMP\\PROGRAMACIÓN I\\AVANCE-PROYECTO\\mercharteria\\mercharteria.csproj",
+        "packagesPath": "C:\\Users\\ABRAHAM\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ABRAHAM\\Documents\\SEXTO CICLO USMP\\PROGRAMACIÓN I\\AVANCE-PROYECTO\\mercharteria\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\usuario\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\ABRAHAM\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -37,7 +37,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
@@ -62,6 +63,10 @@
             "Microsoft.EntityFrameworkCore.Tools": {
               "target": "Package",
               "version": "[8.0.10, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[8.0.7, )"
             }
           },
           "imports": [
@@ -75,6 +80,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.13, 8.0.13]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[8.0.13, 8.0.13]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.13, 8.0.13]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.13, 8.0.13]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -83,7 +106,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("mercharteria")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1c678bcb96e3f61707c1508b3bfb60c198022db1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+530c052cac708c4a0103b1b691504a4da8b2107c")]
 [assembly: System.Reflection.AssemblyProductAttribute("mercharteria")]
 [assembly: System.Reflection.AssemblyTitleAttribute("mercharteria")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
