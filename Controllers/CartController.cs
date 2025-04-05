@@ -1,11 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
 using mercharteria.Models;
 using mercharteria.Extensions;
+using mercharteria.Data;    
 
 namespace mercharteria.Controllers
 {
     public class CartController : Controller
     {
+
+        private readonly ILogger<CartController> _logger;
+        private readonly ApplicationDbContext _context;
+        public CartController(ILogger<CartController> logger, ApplicationDbContext context)
+        {
+            _logger = logger;
+            _context = context;
+        }
         
         public IActionResult Index()
         {
@@ -42,7 +51,7 @@ namespace mercharteria.Controllers
                 {
                     ProductId = productoSeleccionado.Id,
                     Nombre = productoSeleccionado.Nombre,
-                    Precio = productoSeleccionado.Precio,
+                    /*Precio = productoSeleccionado.Precio,*/
                     Cantidad = 1
                 });
             }
@@ -113,7 +122,13 @@ namespace mercharteria.Controllers
         
         private List<Producto> GetAllProductos()
         {
-            return new List<Producto>
+            var productos = _context.DbSetProducto.ToList();
+            _logger.LogInformation("Productos: {0}", productos);
+
+            return productos;
+              
+        }
+            /* return new List<Producto>
             {
                 new Producto{
                     Id = 1,
@@ -292,6 +307,6 @@ namespace mercharteria.Controllers
                 },
                 
             };
-        }
-    }
+        }*/
+    } 
 }
