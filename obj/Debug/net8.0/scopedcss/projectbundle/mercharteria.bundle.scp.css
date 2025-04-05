@@ -8,6 +8,12 @@ a.navbar-brand[b-40hgjsgtcy] {
   word-break: break-all;
 }
 
+a.navbar-brand img[b-40hgjsgtcy] {
+  max-width: 100px;
+  height: auto;
+  margin: 0 auto;
+}
+
 a[b-40hgjsgtcy] {
   color: #0077cc;
 }
