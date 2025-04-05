@@ -53,6 +53,37 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#updateCartBtn").click(function () {
+            let cartData = [];
 
+            $(".quantity-input").each(function () {
+                let itemId = $(this).data("id");
+                let quantity = $(this).val();
+                let price = parseFloat($(`tr[data-id='${itemId}']`).find(".subtotal").attr("data-precio")); // Obtener el precio correctamente
+                let newSubtotal = (price * quantity).toFixed(2);
 
+                // Actualizar el subtotal en la tabla
+                $(`tr[data-id='${itemId}']`).find(".subtotal").text("S/ " + newSubtotal);
 
+                cartData.push({ Id: itemId, Cantidad: quantity });
+            });
+
+            $.ajax({
+                url: "/Cart/UpdateCart",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(cartData),
+                success: function (response) {
+                    if (!response.success) {
+                        alert("Hubo un error al actualizar el carrito.");
+                    }
+                },
+                error: function () {
+                    alert("Error en la actualización del carrito.");
+                }
+            });
+        });
+    });
+</script>
