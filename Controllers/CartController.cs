@@ -19,6 +19,7 @@ namespace mercharteria.Controllers
         public IActionResult Index()
         {
             var cart = GetCart();
+            ViewBag.Total = cart.Sum(item => item.Precio * item.Cantidad);
             return View(cart);
         }
 
@@ -96,6 +97,27 @@ namespace mercharteria.Controllers
         {
             HttpContext.Session.SetObject("Cart", cart);
         }
+
+
+        [HttpPost]
+        public IActionResult UpdateCart([FromBody] List<CartItem> updatedCart)
+        {
+            var cart = GetCart(); // Método que obtiene el carrito actual
+
+            foreach (var updatedItem in updatedCart)
+            {
+                var item = cart.FirstOrDefault(c => c.ProductId == updatedItem.ProductId);
+                if (item != null)
+                {
+                    item.Cantidad = updatedItem.Cantidad;
+                }
+            }
+
+            SaveCart(cart); // Guarda el carrito actualizado
+
+            return Json(new { success = true });
+        }
+
 
         
         private List<Producto> GetAllProductos()
