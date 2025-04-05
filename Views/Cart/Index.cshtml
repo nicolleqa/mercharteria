@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Mi Carrito";
 }
-
+<br><br> <br><br><br> 
 <h2>Mi Carrito</h2>
 <table class="table">
     <thead>
@@ -22,7 +22,7 @@
             <td>@item.Nombre</td>
             <td>@item.Precio.ToString("C")</td>
             <td>@item.Cantidad</td>
-            <td>@(item.Precio * item.Cantidad).ToString("C")</td>
+            <td>@(item.Precio * item.Cantidad)</td>
             <td>
                 <form asp-controller="Cart" asp-action="RemoveItem" method="post" style="display:inline;">
                     <input type="hidden" name="productId" value="@item.ProductId" />

@@ -14,31 +14,45 @@
         }
         else
         {
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th>Cantidad</th>
-                        <th>Subtotal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.Nombre</td>
-                        <td>@item.Cantidad</td>
-                        <td>@(item.Precio * item.Cantidad).ToString("C")</td>
-                    </tr>
-                }
-                </tbody>
-            </table>
+                    <form id="cartForm">
+              <table class="table">
+                  <thead>
+                      <tr>
+                          <th>Producto</th>
+                          <th>Cantidad</th>
+                          <th>Subtotal</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+               <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr data-id="@item.ProductId">
+                            <td>@item.Nombre</td>
+                            <td>
+                                <input type="number" name="quantity" value="@item.Cantidad" min="1" class="form-control quantity-input" data-id="@item.ProductId" />
+                            </td>
+                            <td class="subtotal" data-precio="@item.Precio">@(item.Precio * item.Cantidad)</td>
+                        </tr>
+                    }
+
+
+                  </tbody>
+              </table>
+              <div class="modal-footer">
+                  <button type="button" id="updateCartBtn" class="btn btn-primary">Actualizar Carrito</button>
+                  <a asp-controller="Cart" asp-action="Index" class="btn btn-secondary">Ir al Carrito</a>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Seguir Comprando</button>
+              </div>
+          </form>
+
         }
-      </div>
-      <div class="modal-footer">
-        <a asp-controller="Cart" asp-action="Index" class="btn btn-primary">Ir al Carrito</a>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Seguir Comprando</button>
       </div>
     </div>
   </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+

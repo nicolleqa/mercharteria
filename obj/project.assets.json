@@ -6968,19 +6968,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jos\\.nuget\\packages\\": {}
+    "C:\\Users\\ADMIN\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jos\\Desktop\\proyectos_progra\\arteria_avance_jos\\mercharteria\\mercharteria.csproj",
+      "projectUniqueName": "D:\\trabajo\\trabajo2\\mercharteria\\mercharteria.csproj",
       "projectName": "mercharteria",
-      "projectPath": "C:\\Users\\jos\\Desktop\\proyectos_progra\\arteria_avance_jos\\mercharteria\\mercharteria.csproj",
-      "packagesPath": "C:\\Users\\jos\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jos\\Desktop\\proyectos_progra\\arteria_avance_jos\\mercharteria\\obj\\",
+      "projectPath": "D:\\trabajo\\trabajo2\\mercharteria\\mercharteria.csproj",
+      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+      "outputPath": "D:\\trabajo\\trabajo2\\mercharteria\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\jos\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
