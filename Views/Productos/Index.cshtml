@@ -8,8 +8,7 @@
     <center><h2>Nuestros Productos</h2></center>
     <div class="productos-container">
             @foreach (var item in Model)
-            {
-              
+            { 
             <div class="producto">
               <img src="@item.ImagenUrl" alt="@item.Nombre">
               <h5 class="card-title">@Html.DisplayFor(modelItem => item.Nombre)</h5>
@@ -24,11 +23,3 @@
     </div>
 </section>
 
-
-   
-                
-                
-                
-                
-                
-            

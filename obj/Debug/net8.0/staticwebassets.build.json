@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "CZ4BhMX8iac3Cotkc7GDXt1SexxZO0hFkvouGuNEWTM=",
+  "Hash": "gN1yZuID4y+BBKDgIfbDIrOh8xPN3uBrf1vgfGEwIEY=",
   "Source": "mercharteria",
   "BasePath": "_content/mercharteria",
   "Mode": "Default",
@@ -1291,8 +1291,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ApplicationBundle",
-      "Fingerprint": "bobhdiegt5",
-      "Integrity": "pRVvx/8hXGaY9qmlC6b5zTA6vqY+HyEFkU932Wb2NTs=",
+      "Fingerprint": "0935qressb",
+      "Integrity": "tCW3Bv7pdgVeE3Smg+i+5N9ZfJWGB8SBQ6jWELTEmNk=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\ABRAHAM\\Documents\\SEXTO CICLO USMP\\PROGRAMACIÓN I\\AVANCE-PROYECTO\\mercharteria\\obj\\Debug\\net8.0\\scopedcss\\bundle\\mercharteria.styles.css"
@@ -1312,11 +1312,32 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ProjectBundle",
-      "Fingerprint": "bobhdiegt5",
-      "Integrity": "pRVvx/8hXGaY9qmlC6b5zTA6vqY+HyEFkU932Wb2NTs=",
+      "Fingerprint": "0935qressb",
+      "Integrity": "tCW3Bv7pdgVeE3Smg+i+5N9ZfJWGB8SBQ6jWELTEmNk=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\ABRAHAM\\Documents\\SEXTO CICLO USMP\\PROGRAMACIÓN I\\AVANCE-PROYECTO\\mercharteria\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\mercharteria.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\ABRAHAM\\Documents\\SEXTO CICLO USMP\\PROGRAMACIÓN I\\AVANCE-PROYECTO\\mercharteria\\wwwroot\\css\\index.css",
+      "SourceId": "mercharteria",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ABRAHAM\\Documents\\SEXTO CICLO USMP\\PROGRAMACIÓN I\\AVANCE-PROYECTO\\mercharteria\\wwwroot\\",
+      "BasePath": "_content/mercharteria",
+      "RelativePath": "css/index#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "kabt6028hp",
+      "Integrity": "bMQDgcrLEOMWmVO8YJR/3yZjn74zJLX/H+qjd2gnJbk=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\index.css"
     },
     {
       "Identity": "C:\\Users\\ABRAHAM\\Documents\\SEXTO CICLO USMP\\PROGRAMACIÓN I\\AVANCE-PROYECTO\\mercharteria\\wwwroot\\css\\productos.css",
@@ -2601,6 +2622,88 @@
     }
   ],
   "Endpoints": [
+    {
+      "Route": "css/index.css",
+      "AssetFile": "C:\\Users\\ABRAHAM\\Documents\\SEXTO CICLO USMP\\PROGRAMACIÓN I\\AVANCE-PROYECTO\\mercharteria\\wwwroot\\css\\index.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "8713"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"bMQDgcrLEOMWmVO8YJR/3yZjn74zJLX/H+qjd2gnJbk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 04:27:49 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-bMQDgcrLEOMWmVO8YJR/3yZjn74zJLX/H+qjd2gnJbk="
+        }
+      ]
+    },
+    {
+      "Route": "css/index.kabt6028hp.css",
+      "AssetFile": "C:\\Users\\ABRAHAM\\Documents\\SEXTO CICLO USMP\\PROGRAMACIÓN I\\AVANCE-PROYECTO\\mercharteria\\wwwroot\\css\\index.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "8713"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"bMQDgcrLEOMWmVO8YJR/3yZjn74zJLX/H+qjd2gnJbk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 04:27:49 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "kabt6028hp"
+        },
+        {
+          "Name": "label",
+          "Value": "css/index.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-bMQDgcrLEOMWmVO8YJR/3yZjn74zJLX/H+qjd2gnJbk="
+        }
+      ]
+    },
     {
       "Route": "css/productos.39n3f6pq89.css",
       "AssetFile": "C:\\Users\\ABRAHAM\\Documents\\SEXTO CICLO USMP\\PROGRAMACIÓN I\\AVANCE-PROYECTO\\mercharteria\\wwwroot\\css\\productos.css",
@@ -9824,7 +9927,7 @@
       ]
     },
     {
-      "Route": "mercharteria.bobhdiegt5.bundle.scp.css",
+      "Route": "mercharteria.0935qressb.bundle.scp.css",
       "AssetFile": "C:\\Users\\ABRAHAM\\Documents\\SEXTO CICLO USMP\\PROGRAMACIÓN I\\AVANCE-PROYECTO\\mercharteria\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\mercharteria.bundle.scp.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -9834,7 +9937,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1154"
+          "Value": "1254"
         },
         {
           "Name": "Content-Type",
@@ -9842,11 +9945,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"pRVvx/8hXGaY9qmlC6b5zTA6vqY+HyEFkU932Wb2NTs=\""
+          "Value": "\"tCW3Bv7pdgVeE3Smg+i+5N9ZfJWGB8SBQ6jWELTEmNk=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 05 Apr 2025 00:41:01 GMT"
+          "Value": "Sat, 05 Apr 2025 05:06:02 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -9856,7 +9959,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "bobhdiegt5"
+          "Value": "0935qressb"
         },
         {
           "Name": "label",
@@ -9864,12 +9967,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-pRVvx/8hXGaY9qmlC6b5zTA6vqY+HyEFkU932Wb2NTs="
+          "Value": "sha256-tCW3Bv7pdgVeE3Smg+i+5N9ZfJWGB8SBQ6jWELTEmNk="
         }
       ]
     },
     {
-      "Route": "mercharteria.bobhdiegt5.styles.css",
+      "Route": "mercharteria.0935qressb.styles.css",
       "AssetFile": "C:\\Users\\ABRAHAM\\Documents\\SEXTO CICLO USMP\\PROGRAMACIÓN I\\AVANCE-PROYECTO\\mercharteria\\obj\\Debug\\net8.0\\scopedcss\\bundle\\mercharteria.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -9879,7 +9982,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1154"
+          "Value": "1254"
         },
         {
           "Name": "Content-Type",
@@ -9887,11 +9990,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"pRVvx/8hXGaY9qmlC6b5zTA6vqY+HyEFkU932Wb2NTs=\""
+          "Value": "\"tCW3Bv7pdgVeE3Smg+i+5N9ZfJWGB8SBQ6jWELTEmNk=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 05 Apr 2025 00:41:01 GMT"
+          "Value": "Sat, 05 Apr 2025 05:06:02 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -9901,7 +10004,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "bobhdiegt5"
+          "Value": "0935qressb"
         },
         {
           "Name": "label",
@@ -9909,7 +10012,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-pRVvx/8hXGaY9qmlC6b5zTA6vqY+HyEFkU932Wb2NTs="
+          "Value": "sha256-tCW3Bv7pdgVeE3Smg+i+5N9ZfJWGB8SBQ6jWELTEmNk="
         }
       ]
     },
@@ -9924,7 +10027,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1154"
+          "Value": "1254"
         },
         {
           "Name": "Content-Type",
@@ -9932,11 +10035,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"pRVvx/8hXGaY9qmlC6b5zTA6vqY+HyEFkU932Wb2NTs=\""
+          "Value": "\"tCW3Bv7pdgVeE3Smg+i+5N9ZfJWGB8SBQ6jWELTEmNk=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 05 Apr 2025 00:41:01 GMT"
+          "Value": "Sat, 05 Apr 2025 05:06:02 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -9946,7 +10049,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-pRVvx/8hXGaY9qmlC6b5zTA6vqY+HyEFkU932Wb2NTs="
+          "Value": "sha256-tCW3Bv7pdgVeE3Smg+i+5N9ZfJWGB8SBQ6jWELTEmNk="
         }
       ]
     },
@@ -9961,7 +10064,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1154"
+          "Value": "1254"
         },
         {
           "Name": "Content-Type",
@@ -9969,11 +10072,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"pRVvx/8hXGaY9qmlC6b5zTA6vqY+HyEFkU932Wb2NTs=\""
+          "Value": "\"tCW3Bv7pdgVeE3Smg+i+5N9ZfJWGB8SBQ6jWELTEmNk=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 05 Apr 2025 00:41:01 GMT"
+          "Value": "Sat, 05 Apr 2025 05:06:02 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -9983,7 +10086,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-pRVvx/8hXGaY9qmlC6b5zTA6vqY+HyEFkU932Wb2NTs="
+          "Value": "sha256-tCW3Bv7pdgVeE3Smg+i+5N9ZfJWGB8SBQ6jWELTEmNk="
         }
       ]
     }

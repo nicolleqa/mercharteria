@@ -47,3 +47,10 @@ button.accept-policy {
   line-height: 60px;
   background: #050653;
 }
+
+
+a.navbar-brand img {
+  max-width: 100px;
+  height: auto;
+  margin: 0 auto;
+}

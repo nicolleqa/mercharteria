@@ -1,0 +1,44 @@
+@model List<mercharteria.Models.CartItem>
+
+<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="cartModalLabel">Mi Carrito</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        @if(Model == null || !Model.Any())
+        {
+            <p>No hay productos en el carrito.</p>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Nombre</td>
+                        <td>@item.Cantidad</td>
+                        <td>@(item.Precio * item.Cantidad).ToString("C")</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+      </div>
+      <div class="modal-footer">
+        <a asp-controller="Cart" asp-action="Index" class="btn btn-primary">Ir al Carrito</a>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Seguir Comprando</button>
+      </div>
+    </div>
+  </div>
+</div>
