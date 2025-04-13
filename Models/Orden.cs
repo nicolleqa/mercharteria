@@ -6,23 +6,24 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
-
 namespace mercharteria.Models
 {
-    [Table("t_producto")]
-    public class Producto
+   [Table("t_orden")]
+    public class Orden
     {
-        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column("id")]
         public int Id { get; set; }
-        [NotNull]
-        public string? Nombre { get; set; }
-        [NotNull]
-        public string? Descripcion { get; set; }
-        [NotNull]
-        public Decimal Precio { get; set; }
-        [NotNull]
-        public string? ImagenUrl { get; set; }
-        
+
+        public string? UserName { get; set; }
+
+        public Decimal Total { get; set; }
+
+        public DateTime Fecha { get; set; }
+
+        public Pago? Pago { get; set; }
+
+
+        public string? Estado { get; set; }
     }
 }

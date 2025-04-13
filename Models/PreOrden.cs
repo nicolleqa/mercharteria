@@ -7,22 +7,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
 
+
+
 namespace mercharteria.Models
 {
-    [Table("t_producto")]
-    public class Producto
+    [Table("t_preorden")]
+    public class PreOrden
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [NotNull]
-        public string? Nombre { get; set; }
-        [NotNull]
-        public string? Descripcion { get; set; }
+        public string? UserName { get; set; }
+        public Producto? Producto { get; set; }
+        public int Cantidad { get; set; }
         [NotNull]
         public Decimal Precio { get; set; }
-        [NotNull]
-        public string? ImagenUrl { get; set; }
-        
+        public string? Estado { get; set; } = "PENDIENTE";
     }
 }

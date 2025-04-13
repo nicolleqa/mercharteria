@@ -13,6 +13,9 @@ public class ApplicationDbContext : IdentityDbContext
     {
     }
     public DbSet<Producto> DbSetProducto { get; set; }
+    public DbSet<PreOrden> DbSetPreOrden { get; set; }
+    public DbSet<Orden> DbSetOrden { get; set; }
+    public DbSet<Pago> DbSetPago { get; set; }
 }
 
 
