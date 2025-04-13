@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using mercharteria.Models;
 using mercharteria.Data;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace mercharteria.Controllers
@@ -30,6 +31,20 @@ namespace mercharteria.Controllers
             return View(productos);
             
         }
+        public async Task<IActionResult> Details(int? id)
+        {
+            Producto objProduct = await _context.DbSetProducto.FindAsync(id);
+            if (objProduct == null)
+            {
+                return NotFound();
+            }
+            return View(objProduct);
+        }
+
+
+
+
+
 
          
         

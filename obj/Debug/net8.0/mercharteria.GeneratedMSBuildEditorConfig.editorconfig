@@ -40,6 +40,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/ABRAHAM/Documents/SEXTO CICLO USMP/PROGRAMACIÓN I/AVANCE-PROYECTO/mercharteria/Areas/Identity/Pages/Account/Manage/Email.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcRW1haWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ABRAHAM/Documents/SEXTO CICLO USMP/PROGRAMACIÓN I/AVANCE-PROYECTO/mercharteria/Areas/Identity/Pages/Account/Manage/_ManageNav.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX01hbmFnZU5hdi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ABRAHAM/Documents/SEXTO CICLO USMP/PROGRAMACIÓN I/AVANCE-PROYECTO/mercharteria/Areas/Identity/Pages/Account/Manage/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/ABRAHAM/Documents/SEXTO CICLO USMP/PROGRAMACIÓN I/AVANCE-PROYECTO/mercharteria/Areas/Identity/Pages/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -64,8 +76,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ABRAHAM/Documents/SEXTO CICLO USMP/PROGRAMACIÓN I/AVANCE-PROYECTO/mercharteria/Views/Cart/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydFxJbmRleC5jc2h0bWw=
+[C:/Users/ABRAHAM/Documents/SEXTO CICLO USMP/PROGRAMACIÓN I/AVANCE-PROYECTO/mercharteria/Views/Carrito/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2Fycml0b1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/ABRAHAM/Documents/SEXTO CICLO USMP/PROGRAMACIÓN I/AVANCE-PROYECTO/mercharteria/Views/Home/Index.cshtml]
@@ -74,6 +86,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/ABRAHAM/Documents/SEXTO CICLO USMP/PROGRAMACIÓN I/AVANCE-PROYECTO/mercharteria/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ABRAHAM/Documents/SEXTO CICLO USMP/PROGRAMACIÓN I/AVANCE-PROYECTO/mercharteria/Views/Productos/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdG9zXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/ABRAHAM/Documents/SEXTO CICLO USMP/PROGRAMACIÓN I/AVANCE-PROYECTO/mercharteria/Views/Productos/Index.cshtml]
