@@ -16,7 +16,7 @@
 
               <form asp-controller="Cart" asp-action="AddToCart" method="post">
                     <input type="hidden" name="productId" value="@item.Id" />
-                    <a class="btn btn-primary" asp-controller="Carrito" asp-action="Add" asp-route-id="@item.Id">Agregar al carrito</a>
+                    <a class="btn btn-primary" asp-controller="Carrito" asp-action="Add" asp-route-id="@item.Id">Agregar carrito</a>
                     <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Ver</a>
               </form> 
             </div>
