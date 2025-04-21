@@ -19,7 +19,8 @@ namespace mercharteria.Data
 
             var connectionString = configuration.GetConnectionString("DefaultConnection");
 
-            optionsBuilder.UseSqlite(connectionString);
+            optionsBuilder.UseNpgsql(connectionString);
+            // optionsBuilder.UseSqlite(connectionString); // Descomentar si se usa SQLite
 
             return new ApplicationDbContext(optionsBuilder.Options);
         }
