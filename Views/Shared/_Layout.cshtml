@@ -12,38 +12,40 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light w-100" style="height: 80px;">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="color: white;">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/merchanteria-f305c.firebasestorage.app/o/logo.png?alt=media&token=903acc6a-2a57-4106-bf7f-22cffb5561ae" alt="Arteria Merch" />
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/merchanteria-f305c.firebasestorage.app/o/logo.png?alt=media&token=903acc6a-2a57-4106-bf7f-22cffb5561ae" alt="Arteria Merch" style="width: 80px; height: 100%;"/>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" 
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index" style="color: white; margin-left: 300px">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index" style="color: white;">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Productos" asp-action="Index" style="color: white;  margin-left: 30px">Productos</a>
+                            <a class="nav-link" asp-area="" asp-controller="Productos" asp-action="Index" style="color: white;">Productos</a>
                         </li>
-                        <li class="nav-item"></li>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <a class="nav-link" asp-area="" asp-controller="Carrito" asp-action="Index" style="color: white; margin-left: 30px">Carrito</a>
-                            }
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Carrito" asp-action="Index" style="color: white;">Carrito</a>
+                            </li>
+                        }
+                    </ul>
+                    <ul class="navbar-nav">
                         <partial name="_LoginPartial" />
-                    </ul>  
+                    </ul>
                 </div>
             </div>
         </nav>
     </header>
     
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" style="margin-top: 140px; margin-bottom: 140px;">
             @RenderBody()
         </main>
     </div>
