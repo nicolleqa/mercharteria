@@ -18,6 +18,7 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Pago> DbSetPago { get; set; }
 
     public DbSet<Testimonio> Testimonios { get; set; }
+    public DbSet<Personaje> Personajes { get; set; }
 }
 
 

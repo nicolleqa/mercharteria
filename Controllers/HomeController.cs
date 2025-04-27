@@ -17,12 +17,14 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        var personajes = _context.Personajes.ToList();
+        ViewBag.Personajes = personajes;
+
         var testimonios = _context.Testimonios.Take(3).ToList();
         ViewBag.Testimonios = testimonios;
 
         var productos = _context.DbSetProducto.Take(4).ToList();
 
-        // Pasa los productos a la vista
         return View(productos);
     }
 
