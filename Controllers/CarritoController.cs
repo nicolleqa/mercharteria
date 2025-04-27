@@ -83,6 +83,32 @@ namespace mercharteria.Controllers
         }
 
 
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, int cantidad)
+        {
+            var item = await _context.DbSetPreOrden.FindAsync(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            item.Cantidad = cantidad;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var item = await _context.DbSetPreOrden.FindAsync(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            _context.DbSetPreOrden.Remove(item);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
 
 
 
