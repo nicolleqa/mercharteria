@@ -23,7 +23,7 @@ public class HomeController : Controller
         var testimonios = _context.Testimonios.Take(3).ToList();
         ViewBag.Testimonios = testimonios;
 
-        var productos = _context.DbSetProducto.Take(4).ToList();
+        var productos = _context.Productos.Take(4).ToList();
 
         return View(productos);
     }

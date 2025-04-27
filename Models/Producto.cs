@@ -9,7 +9,6 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace mercharteria.Models
 {
-    [Table("t_producto")]
     public class Producto
     {
         [Key]
@@ -23,6 +22,13 @@ namespace mercharteria.Models
         public decimal Precio { get; set; }
         [NotNull]
         public string? ImagenUrl { get; set; }
+
+        // Relación con Categoria
+        public int CategoriaId { get; set; }
+        public virtual Categoria? Categoria { get; set; }
+
+        // Relación muchos a muchos con Personajes
+        public virtual ICollection<Personaje>? Personajes { get; set; }
         
     }
 }

@@ -63,12 +63,19 @@ namespace mercharteria.Controllers
             }
             else
             {
-                var producto = await _context.DbSetProducto.FindAsync(id);
-                PreOrden proforma = new PreOrden();
-                proforma.Producto = producto;
-                proforma.Precio = producto.Precio;
-                proforma.Cantidad = 1;
-                proforma.UserName = userID;
+                var producto = await _context.Productos.Include(p => p.Categoria).FirstOrDefaultAsync(p => p.Id == id);
+                if (producto == null)
+                {
+                    return NotFound();
+                }
+
+                PreOrden proforma = new PreOrden
+                {
+                    Producto = producto,
+                    Precio = producto.Precio,
+                    Cantidad = 1,
+                    UserName = userID
+                };
                 _context.Add(proforma);
                 await _context.SaveChangesAsync();
                 ViewData["Message"] = "Se Agrego al carrito";
