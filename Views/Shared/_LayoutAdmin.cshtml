@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -25,17 +25,11 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index" style="color: white;">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index" style="color: white;">Hola</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Productos" asp-action="Index" style="color: white;">Productos</a>
                         </li>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Carrito" asp-action="Index" style="color: white;">Carrito</a>
-                            </li>
-                        }
                     </ul>
                     <ul class="navbar-nav">
                         <partial name="_LoginPartial" />
@@ -46,7 +40,7 @@
     </header>
     
     <div class="container">
-        <main role="main" style="margin-top: 110px; margin-bottom: 110px;">
+        <main role="main" style="margin-top: 140px; margin-bottom: 140px;">
             @RenderBody()
         </main>
     </div>

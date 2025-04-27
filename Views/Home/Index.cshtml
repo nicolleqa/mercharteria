@@ -1,51 +1,52 @@
-﻿@{
+﻿@model List<mercharteria.Models.Producto>
+
+@{
     ViewData["Title"] = "Home";
 }
 
-<br><br><br><br><br><br>
-<section id="productos">
-    <center><h2>Nuestros Productos exclusivos</h2></center>
-    <div class="productos-container">
-      <a href="#" style="text-decoration: none; color: black;">
-        <div class="producto">
-          <img src="https://kacaoshop.com/wp-content/uploads/2020/12/Camiseta-Exclusiva-Monchito.jpg" alt="Camiseta Exclusiva" />
-          <h3>Camiseta Exclusiva</h3>
-          <p>Diseño único y cómodo, disponible en varias tallas y colores.</p>
-          <span>$25.99</span>
-        </div>
-      </a>
-
-      <a href="#" style="text-decoration: none; color: black;">
-        <div class="producto">
-          <img src="https://ox.pe/wp-content/uploads/2023/01/taza-personalizada-ox.pe-peru-al-por-mayor-y-menor.png" alt="Taza Personalizada" />
-          <h3>Taza Personalizada</h3>
-          <p>
-            Ideal para tus bebidas. Personaliza con tu nombre o imagen favorita.
-          </p>
-          <span>$14.99</span>
-        </div>
-      </a>
-
-      <a href="" style="text-decoration: none; color: black;">
-        <div class="producto">
-          <img src="https://lacamaleona.com/cdn/shop/files/396971535498460bbff29ba5f40e3de1xl_2048x.jpg?v=1687960992" alt="Gorra Bordada" />
-          <h3>Gorra Bordada</h3>
-          <p>Estilo y protección, con bordados de alta calidad.</p>
-          <span>$19.99</span>
-        </div>
-      </a>
-
-      <a href="" style="text-decoration: none; color: black;">
-        <div class="producto">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRk95YjJ2TVrc0e3bK5M5eY0tdsIlgakSVg1Q&s" alt="Hoodie Premium" />
-          <h3>Hoodie Premium</h3>
-          <p>Suave y abrigador, ideal para cualquier temporada.</p>
-          <span>$39.99</span>
-        </div>
-      </a>
-
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style="margin-bottom: 20px; width: 100vw; position: relative; left: 50%; transform: translateX(-50%);">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
     </div>
-  </section>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="https://firebasestorage.googleapis.com/v0/b/merchanteria-f305c.firebasestorage.app/o/slider1.svg?alt=media&token=0b2cde74-3f3c-4c6f-91b7-2bca7ef76015" class="d-block w-100" alt="Imagen 1">
+        </div>
+        <div class="carousel-item">
+            <img src="https://firebasestorage.googleapis.com/v0/b/merchanteria-f305c.firebasestorage.app/o/slider2.svg?alt=media&token=2b849e7f-2a44-4dfa-afc6-435b07efe29e" class="d-block w-100" alt="Imagen 2">
+        </div>
+        <div class="carousel-item">
+            <img src="https://firebasestorage.googleapis.com/v0/b/merchanteria-f305c.firebasestorage.app/o/slider3.svg?alt=media&token=0103fa66-830c-45e2-9c67-bd2f03f8e94c" class="d-block w-100" alt="Imagen 3">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+    </button>
+</div>
+
+<section id="productos">
+  <h2 style="text-align: center;">Nuestros productos exclusivos</h2>
+  <div class="productos-container">
+    @foreach (var producto in Model)
+    {
+      <a href="~/Productos/Details/@producto.Id" style="text-decoration: none; color: black;">
+        <div class="producto">
+          <img src="@producto.ImagenUrl" alt="@producto.Nombre" />
+          <h3>@producto.Nombre</h3>
+          <p>@producto.Descripcion</p>
+          <span>@producto.Precio.ToString("C")</span>
+        </div>
+      </a>
+    }
+  </div>
+</section>
 
   <section class="product-slider-section">
     <h2>Todo para los fans de las pelis & series</h2>
@@ -126,7 +127,7 @@
 
 
 
-<center><h2>Testimonios de nuestros clientes</h2></center>
+<h2 style="text-align: center; margin-top: 30px;">Testimonios de nuestros clientes</h2>
 <div class="testimonials" id="testimonios">
   <div class="testimonial-card">
       <p>⭐️⭐️⭐️⭐️⭐️</p>
