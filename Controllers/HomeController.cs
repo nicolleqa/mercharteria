@@ -1,21 +1,27 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using mercharteria.Data;
 using mercharteria.Models;
+using System.Linq;
+using System.Diagnostics;
 
 namespace mercharteria.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ApplicationDbContext _context;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ApplicationDbContext context)
     {
-        _logger = logger;
+        _context = context;
     }
 
     public IActionResult Index()
     {
-        return View();
+                // Obtén los 4 primeros productos de la base de datos
+        var productos = _context.DbSetProducto.Take(4).ToList();
+
+        // Pasa los productos a la vista
+        return View(productos);
     }
 
     public IActionResult Privacy()

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<mercharteria.Models.Producto>
+
+@{
     ViewData["Title"] = "Home";
 }
 
@@ -30,48 +32,21 @@
 </div>
 
 <section id="productos">
-    <center><h2>Nuestros Productos exclusivos</h2></center>
-    <div class="productos-container">
-      <a href="#" style="text-decoration: none; color: black;">
+  <h2 style="text-align: center;">Nuestros productos exclusivos</h2>
+  <div class="productos-container">
+    @foreach (var producto in Model)
+    {
+      <a href="~/Productos/Details/@producto.Id" style="text-decoration: none; color: black;">
         <div class="producto">
-          <img src="https://kacaoshop.com/wp-content/uploads/2020/12/Camiseta-Exclusiva-Monchito.jpg" alt="Camiseta Exclusiva" />
-          <h3>Camiseta Exclusiva</h3>
-          <p>Diseño único y cómodo, disponible en varias tallas y colores.</p>
-          <span>$25.99</span>
+          <img src="@producto.ImagenUrl" alt="@producto.Nombre" />
+          <h3>@producto.Nombre</h3>
+          <p>@producto.Descripcion</p>
+          <span>@producto.Precio.ToString("C")</span>
         </div>
       </a>
-
-      <a href="#" style="text-decoration: none; color: black;">
-        <div class="producto">
-          <img src="https://ox.pe/wp-content/uploads/2023/01/taza-personalizada-ox.pe-peru-al-por-mayor-y-menor.png" alt="Taza Personalizada" />
-          <h3>Taza Personalizada</h3>
-          <p>
-            Ideal para tus bebidas. Personaliza con tu nombre o imagen favorita.
-          </p>
-          <span>$14.99</span>
-        </div>
-      </a>
-
-      <a href="" style="text-decoration: none; color: black;">
-        <div class="producto">
-          <img src="https://lacamaleona.com/cdn/shop/files/396971535498460bbff29ba5f40e3de1xl_2048x.jpg?v=1687960992" alt="Gorra Bordada" />
-          <h3>Gorra Bordada</h3>
-          <p>Estilo y protección, con bordados de alta calidad.</p>
-          <span>$19.99</span>
-        </div>
-      </a>
-
-      <a href="" style="text-decoration: none; color: black;">
-        <div class="producto">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRk95YjJ2TVrc0e3bK5M5eY0tdsIlgakSVg1Q&s" alt="Hoodie Premium" />
-          <h3>Hoodie Premium</h3>
-          <p>Suave y abrigador, ideal para cualquier temporada.</p>
-          <span>$39.99</span>
-        </div>
-      </a>
-
-    </div>
-  </section>
+    }
+  </div>
+</section>
 
   <section class="product-slider-section">
     <h2>Todo para los fans de las pelis & series</h2>
@@ -152,7 +127,7 @@
 
 
 
-<center><h2>Testimonios de nuestros clientes</h2></center>
+<h2 style="text-align: center; margin-top: 30px;">Testimonios de nuestros clientes</h2>
 <div class="testimonials" id="testimonios">
   <div class="testimonial-card">
       <p>⭐️⭐️⭐️⭐️⭐️</p>

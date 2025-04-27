@@ -20,7 +20,7 @@ namespace mercharteria.Models
         [NotNull]
         public string? Descripcion { get; set; }
         [NotNull]
-        public Decimal Precio { get; set; }
+        public decimal Precio { get; set; }
         [NotNull]
         public string? ImagenUrl { get; set; }
         
