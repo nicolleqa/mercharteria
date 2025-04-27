@@ -52,7 +52,7 @@ namespace mercharteria.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Add(int? id)
+        public async Task<IActionResult> Add(int? id, int cantidad)
         {
             var userID = _userManager.GetUserName(User);
             if (userID == null)
@@ -61,27 +61,25 @@ namespace mercharteria.Controllers
                 ViewData["Message"] = "Por favor debe loguearse antes de agregar un producto";
                 return RedirectToAction("Index", "Productos");
             }
-            else
-            {
-                var producto = await _context.Productos.Include(p => p.Categoria).FirstOrDefaultAsync(p => p.Id == id);
-                if (producto == null)
-                {
-                    return NotFound();
-                }
 
-                PreOrden proforma = new PreOrden
-                {
-                    Producto = producto,
-                    Precio = producto.Precio,
-                    Cantidad = 1,
-                    UserName = userID
-                };
-                _context.Add(proforma);
-                await _context.SaveChangesAsync();
-                ViewData["Message"] = "Se Agrego al carrito";
-                _logger.LogInformation("Se agrego un producto al carrito");
-                return RedirectToAction("Index", "Productos");
+            var producto = await _context.Productos.Include(p => p.Categoria).FirstOrDefaultAsync(p => p.Id == id);
+            if (producto == null)
+            {
+                return NotFound();
             }
+
+            PreOrden proforma = new PreOrden
+            {
+                Producto = producto,
+                Precio = producto.Precio,
+                Cantidad = cantidad > 0 ? cantidad : 1,
+                UserName = userID
+            };
+            _context.Add(proforma);
+            await _context.SaveChangesAsync();
+            ViewData["Message"] = "Se Agrego al carrito";
+            _logger.LogInformation("Se agrego un producto al carrito");
+            return RedirectToAction("Index", "Productos");
         }
 
 

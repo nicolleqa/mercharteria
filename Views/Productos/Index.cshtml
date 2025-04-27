@@ -24,6 +24,7 @@
 
           <form asp-controller="Cart" asp-action="AddToCart" method="post">
               <input type="hidden" name="productId" value="@item.Id" />
+              <input type="hidden" name="cantidad" value="1" />
               <a class="btn me-3" style="background-color: transparent; border-radius: 20px; border: 1px solid #050653; color: #050653;" asp-controller="Carrito" asp-action="Add" asp-route-id="@item.Id">Agregar carrito</a>
               <a class="btn text-white" asp-action="Details" style="background-color: #050653; border-radius: 20px;" asp-route-id="@item.Id">Ver</a>
           </form>
