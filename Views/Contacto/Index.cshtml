@@ -1,0 +1,112 @@
+@model mercharteria.Models.Contacto
+
+@{
+    ViewData["Title"] = "Contacto";
+}
+
+@if (TempData["MensajeExito"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["MensajeExito"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<br><br><br><br><br><br>
+
+<section id="contacto">
+    <center><h2>Contacto</h2></center>
+    <div class="formulario-container">
+        <form asp-action="Index" method="post">
+            <div class="form-group">
+                <label asp-for="Nombre">Nombre y Apellido</label><br>
+                <input asp-for="Nombre" class="form-control" placeholder="Tu nombre completo" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <br>
+            <div class="form-group">
+                <label asp-for="NumeroTelefono">Número de Teléfono</label><br>
+                <input asp-for="NumeroTelefono" class="form-control" placeholder="+51 xxx xxx xxx" />
+                <span asp-validation-for="NumeroTelefono" class="text-danger"></span>
+            </div>
+            <br>
+            <div class="form-group">
+                <label asp-for="Mensaje">Mensaje</label><br>
+                <textarea asp-for="Mensaje" class="form-control" rows="5" placeholder="Escribe tu mensaje aquí..."></textarea>
+                <span asp-validation-for="Mensaje" class="text-danger"></span>
+            </div>
+            <br>
+            <center>
+                <button type="submit" class="btn-enviar">Enviar</button>
+            </center>
+        </form>
+    </div>
+</section>
+
+<br><br>
+
+<section id="ubicacion">
+    <center><h2>Ubícanos</h2></center>
+    <div class="ubicacion-container">
+        <div class="info-ubicacion">
+            <p><strong>Teléfono:</strong> +51 987 654 321</p>
+            <p><strong>Correo:</strong> mercharteria@gmail.com</p>
+            <p><strong>Dirección:</strong> Av. Gonzales 123, Lima, Perú</p>
+        </div>
+        <br>
+        <div class="mapa">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3900.6973742841204!2d-76.98183438473556!3d-12.121186646173335!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c6e7e3b35b21%3A0x57b5b99f9f2e0cf3!2sUniversidad%20Nacional%20Mayor%20de%20San%20Marcos!5e0!3m2!1ses-419!2spe!4v1683937196821!5m2!1ses-419!2spe" 
+                width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
+            </iframe>
+        </div>
+    </div>
+</section>
+
+<br><br>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<style>
+    .formulario-container {
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .btn-enviar {
+        background-color: #0D1B52;
+        color: white;
+        padding: 10px 30px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .ubicacion-container {
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    .info-ubicacion p {
+        margin: 5px 0;
+        font-size: 18px;
+    }
+
+    .footer {
+        background-color: #0D1B52;
+        color: white;
+        padding: 20px;
+    }
+</style>
