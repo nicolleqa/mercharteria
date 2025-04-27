@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using mercharteria.Models;
 using mercharteria.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace mercharteria.Controllers
@@ -49,6 +50,15 @@ namespace mercharteria.Controllers
         public IActionResult Error()
         {
             return View("Error!");
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult Admin()
+        {
+            var productos = _context.Productos
+                .Include(p => p.Categoria)
+                .ToList();
+            return View(productos);
         }
     }
 }
