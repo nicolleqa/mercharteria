@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using mercharteria.Data;
@@ -11,9 +12,11 @@ using mercharteria.Data;
 namespace mercharteria.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250427204528_SeedCategories2")]
+    partial class SeedCategories2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -249,6 +252,23 @@ namespace mercharteria.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categorias");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Nombre = "Ropa"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Nombre = "Accesorios"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Nombre = "Coleccionables"
+                        });
                 });
 
             modelBuilder.Entity("mercharteria.Models.Orden", b =>

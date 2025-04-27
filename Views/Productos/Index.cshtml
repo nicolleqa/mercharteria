@@ -2,26 +2,44 @@
 @{
     ViewData["Title"] = "Productos";
 }
-
-<br><br><br><br><br><br>
 <section id="productos">
-    <center><h2>Nuestros Productos</h2></center>
-    <div class="productos-container">
-            @foreach (var item in Model)
-            { 
-            <div class="producto">
-              <img src="@item.ImagenUrl" alt="@item.Nombre">
-              <h5 class="card-title">@Html.DisplayFor(modelItem => item.Nombre)</h5>
-              <p class="card-text">@Html.DisplayFor(modelItem => item.Precio)</p>
-
-              <form asp-controller="Cart" asp-action="AddToCart" method="post">
-                    <input type="hidden" name="productId" value="@item.Id" />
-                    <a class="btn btn-primary" asp-controller="Carrito" asp-action="Add" asp-route-id="@item.Id">Agregar carrito</a>
-                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Ver</a>
-              </form> 
-            </div>
+    <h2 style="margin-top: 130px; text-align: center;">Nuestros Productos</h2>
+    <div style="margin: 20px 0;">
+        <select id="categoriaFilter" class="form-select" style="max-width: 200px; margin: 0 auto;" onchange="filterByCategory(this.value)">
+            <option value="0">Todas las categorías</option>
+            @foreach (var categoria in ViewBag.Categorias)
+            {
+                <option value="@categoria.Id">@categoria.Nombre</option>
             }
+        </select>
     </div>
-    <br><br>
+    <div class="productos-container">
+      @foreach (var item in Model)
+      { 
+        <div class="producto">
+          <img src="@item.ImagenUrl" alt="@item.Nombre">
+          <h5 class="card-title">@item.Nombre</h5>
+          <p class="card-text">@item.Descripcion</p>
+          <p class="card-text"><strong>@item.Precio.ToString("C")</strong></p>
+
+          <form asp-controller="Cart" asp-action="AddToCart" method="post">
+              <input type="hidden" name="productId" value="@item.Id" />
+              <input type="hidden" name="cantidad" value="1" />
+              <a class="btn me-3" style="background-color: transparent; border-radius: 20px; border: 1px solid #050653; color: #050653;" asp-controller="Carrito" asp-action="Add" asp-route-id="@item.Id">Agregar carrito</a>
+              <a class="btn text-white" asp-action="Details" style="background-color: #050653; border-radius: 20px;" asp-route-id="@item.Id">Ver</a>
+          </form>
+        </div>
+      }
+    </div>
 </section>
 
+<script>
+    function filterByCategory(categoriaId) {
+        console.log(categoriaId);
+        if (categoriaId != 0) {
+            window.location.href = '/Productos/Index?categoriaId=' + categoriaId;
+        } else {
+            window.location.href = '/Productos/Index';
+        }
+    }
+</script>

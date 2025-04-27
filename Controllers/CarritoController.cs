@@ -52,7 +52,7 @@ namespace mercharteria.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Add(int? id)
+        public async Task<IActionResult> Add(int? id, int cantidad)
         {
             var userID = _userManager.GetUserName(User);
             if (userID == null)
@@ -61,23 +61,54 @@ namespace mercharteria.Controllers
                 ViewData["Message"] = "Por favor debe loguearse antes de agregar un producto";
                 return RedirectToAction("Index", "Productos");
             }
-            else
+
+            var producto = await _context.Productos.Include(p => p.Categoria).FirstOrDefaultAsync(p => p.Id == id);
+            if (producto == null)
             {
-                var producto = await _context.DbSetProducto.FindAsync(id);
-                PreOrden proforma = new PreOrden();
-                proforma.Producto = producto;
-                proforma.Precio = producto.Precio;
-                proforma.Cantidad = 1;
-                proforma.UserName = userID;
-                _context.Add(proforma);
-                await _context.SaveChangesAsync();
-                ViewData["Message"] = "Se Agrego al carrito";
-                _logger.LogInformation("Se agrego un producto al carrito");
-                return RedirectToAction("Index", "Productos");
+                return NotFound();
             }
+
+            PreOrden proforma = new PreOrden
+            {
+                Producto = producto,
+                Precio = producto.Precio,
+                Cantidad = cantidad > 0 ? cantidad : 1,
+                UserName = userID
+            };
+            _context.Add(proforma);
+            await _context.SaveChangesAsync();
+            ViewData["Message"] = "Se Agrego al carrito";
+            _logger.LogInformation("Se agrego un producto al carrito");
+            return RedirectToAction("Index", "Productos");
         }
 
 
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, int cantidad)
+        {
+            var item = await _context.DbSetPreOrden.FindAsync(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            item.Cantidad = cantidad;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var item = await _context.DbSetPreOrden.FindAsync(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            _context.DbSetPreOrden.Remove(item);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
 
 
 

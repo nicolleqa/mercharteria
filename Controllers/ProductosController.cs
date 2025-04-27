@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using mercharteria.Models;
 using mercharteria.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace mercharteria.Controllers
@@ -24,16 +25,20 @@ namespace mercharteria.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? categoriaId)
         {  
-            var productos = _context.DbSetProducto.ToList();
-            _logger.LogInformation("Productos: {0}", productos);
-            return View(productos);
-            
+            var query = _context.Productos.Include(p => p.Categoria).AsQueryable();
+            if (categoriaId.HasValue && categoriaId.Value != 0)
+            {
+                query = query.Where(p => p.CategoriaId == categoriaId);
+            }
+
+            ViewBag.Categorias = _context.Categorias.ToList();
+            return View(query.ToList());
         }
         public async Task<IActionResult> Details(int? id)
         {
-            Producto objProduct = await _context.DbSetProducto.FindAsync(id);
+            Producto? objProduct = await _context.Productos.FindAsync(id);
             if (objProduct == null)
             {
                 return NotFound();
@@ -41,17 +46,19 @@ namespace mercharteria.Controllers
             return View(objProduct);
         }
 
-
-
-
-
-
-         
-        
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View("Error!");
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult Admin()
+        {
+            var productos = _context.Productos
+                .Include(p => p.Categoria)
+                .ToList();
+            return View(productos);
         }
     }
 }

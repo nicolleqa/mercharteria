@@ -9,6 +9,7 @@ body {
     padding: 0;
     background-color: #f4f4f4;
     font-family: "Texturina", serif;
+    overflow-x: hidden;
   }
 
 
@@ -275,14 +276,15 @@ nav ul li a:hover::after {
   }
 
 
-  .about-us {
+.about-us {
   background-color: #f8f9fa;
   padding: 50px 20px;
   text-align: center;
+  margin-top: 50px;
 }
 
 .about-content {
-  max-width: 800px;
+  max-width: 1200px;
   margin: auto;
 }
 

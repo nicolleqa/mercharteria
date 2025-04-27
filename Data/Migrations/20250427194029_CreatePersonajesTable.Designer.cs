@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using mercharteria.Data;
@@ -11,9 +12,11 @@ using mercharteria.Data;
 namespace mercharteria.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250427194029_CreatePersonajesTable")]
+    partial class CreatePersonajesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -218,39 +221,6 @@ namespace mercharteria.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("PersonajeProducto", b =>
-                {
-                    b.Property<int>("PersonajesId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ProductosId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("PersonajesId", "ProductosId");
-
-                    b.HasIndex("ProductosId");
-
-                    b.ToTable("PersonajeProducto");
-                });
-
-            modelBuilder.Entity("mercharteria.Models.Categoria", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Categorias");
-                });
-
             modelBuilder.Entity("mercharteria.Models.Orden", b =>
                 {
                     b.Property<int>("Id")
@@ -374,9 +344,6 @@ namespace mercharteria.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CategoriaId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Descripcion")
                         .IsRequired()
                         .HasColumnType("text");
@@ -394,9 +361,7 @@ namespace mercharteria.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoriaId");
-
-                    b.ToTable("Productos");
+                    b.ToTable("t_producto");
                 });
 
             modelBuilder.Entity("mercharteria.Models.Testimonio", b =>
@@ -476,21 +441,6 @@ namespace mercharteria.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PersonajeProducto", b =>
-                {
-                    b.HasOne("mercharteria.Models.Personaje", null)
-                        .WithMany()
-                        .HasForeignKey("PersonajesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("mercharteria.Models.Producto", null)
-                        .WithMany()
-                        .HasForeignKey("ProductosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("mercharteria.Models.Orden", b =>
                 {
                     b.HasOne("mercharteria.Models.Pago", "Pago")
@@ -507,22 +457,6 @@ namespace mercharteria.Data.Migrations
                         .HasForeignKey("ProductoId");
 
                     b.Navigation("Producto");
-                });
-
-            modelBuilder.Entity("mercharteria.Models.Producto", b =>
-                {
-                    b.HasOne("mercharteria.Models.Categoria", "Categoria")
-                        .WithMany("Productos")
-                        .HasForeignKey("CategoriaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Categoria");
-                });
-
-            modelBuilder.Entity("mercharteria.Models.Categoria", b =>
-                {
-                    b.Navigation("Productos");
                 });
 #pragma warning restore 612, 618
         }
