@@ -17,7 +17,9 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-                // Obtén los 4 primeros productos de la base de datos
+        var testimonios = _context.Testimonios.Take(3).ToList();
+        ViewBag.Testimonios = testimonios;
+
         var productos = _context.DbSetProducto.Take(4).ToList();
 
         // Pasa los productos a la vista

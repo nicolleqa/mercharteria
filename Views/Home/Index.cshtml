@@ -129,21 +129,19 @@
 
 <h2 style="text-align: center; margin-top: 30px;">Testimonios de nuestros clientes</h2>
 <div class="testimonials" id="testimonios">
-  <div class="testimonial-card">
-      <p>⭐️⭐️⭐️⭐️⭐️</p>
-      <p>"La calidad es simplemente excepcional. Nunca había recibido un trato tan amable y profesional."</p>
-      <h4>- Juan Pérez</h4>
-  </div>
-  <div class="testimonial-card">
-      <p>⭐️⭐️⭐️⭐️⭐️</p>
-      <p>"Cada producto que compré superó mis expectativas. ¡Seguiré comprando sin dudarlo!"</p>
-      <h4>- María Gómez</h4>
-  </div>
-  <div class="testimonial-card">
-      <p>⭐️⭐️⭐️⭐️⭐️</p>
-      <p>"El mejor servicio que he recibido en años. Se nota la dedicación y el cariño en cada detalle."</p>
-      <h4>- Pedro Ramírez</h4>
-  </div>
+    @foreach (var testimonio in ViewBag.Testimonios)
+    {
+        <div class="testimonial-card">
+            <p>
+              @for (int i = 0; i < testimonio.Rating; i++)
+              {
+                  @:⭐
+              }
+            </p>
+            <p>"@testimonio.Comentario"</p>
+            <h4>- @testimonio.Nombre</h4>
+        </div>
+    }
 </div>
 
 <script>
