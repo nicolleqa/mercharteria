@@ -22,6 +22,8 @@ public class ApplicationDbContext : IdentityDbContext
 
     public DbSet<Categoria> Categorias { get; set; }
 
+    public DbSet<Contacto> Contactos { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
