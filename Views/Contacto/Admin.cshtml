@@ -1,0 +1,57 @@
+@model IEnumerable<mercharteria.Models.Contacto>
+
+@{
+    ViewData["Title"] = "Administración de Contactos";
+    Layout = "_LayoutAdmin";
+}
+
+<div class="container-fluid" style="padding: 50px 60px;">
+    <div class="mb-4">
+        <h1 class="h3">Mensajes de Contacto</h1>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Mensaje</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Nombre</td>
+                                <td>@item.Email</td>
+                                <td>
+                                    @if (item.Mensaje?.Length > 50)
+                                    {
+                                        @(item.Mensaje.Substring(0, 47) + "...")
+                                    }
+                                    else
+                                    {
+                                        @item.Mensaje
+                                    }
+                                </td>
+                                <td>@TimeZoneInfo.ConvertTimeBySystemTimeZoneId(item.FechaEnvio, "SA Pacific Standard Time").ToString("dd/MM/yyyy HH:mm")</td>
+                                <td>
+                                    <a href="mailto:@item.Email?subject=Respuesta a tu mensaje&body=Hola @item.Nombre, gracias por contactarnos."   
+                                       class="btn btn-sm text-white" 
+                                       style="background-color: #050653; border-radius: 12px; padding: 6px 16px;">
+                                        Responder
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

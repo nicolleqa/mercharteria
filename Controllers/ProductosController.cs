@@ -52,7 +52,7 @@ namespace mercharteria.Controllers
             return View("Error!");
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrador")]
         public IActionResult Admin()
         {
             var productos = _context.Productos

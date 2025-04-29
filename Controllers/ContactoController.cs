@@ -1,6 +1,14 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using mercharteria.Models;
 using mercharteria.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace mercharteria.Controllers
 {
@@ -31,6 +39,14 @@ namespace mercharteria.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View("Index", contacto);
+        }
+
+        [Authorize(Roles = "Administrador")]
+        public IActionResult Admin()
+        {
+            var contactos = _context.Contactos
+                .ToList();
+            return View(contactos);
         }
     }
 }
