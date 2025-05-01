@@ -1,0 +1,28 @@
+@model mercharteria.Models.Categoria
+@{
+    ViewData["Title"] = "Editar Categoría";
+    Layout = "_LayoutAdmin";
+}
+
+<div class="container-fluid" style="padding: 50px 60px;">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3">Editar Categoría</h1>
+        <a asp-action="Admin" class="btn text-white" style="background-color: #050653; border-radius: 12px; padding: 8px 24px;">
+            Volver
+        </a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form asp-action="Edit" method="post">
+                <input type="hidden" name="Id" value="@Model.Id" />
+                <div class="mb-3">
+                    <label for="Nombre" class="form-label">Nombre</label>
+                    <input type="text" name="Nombre" class="form-control" id="Nombre" value="@Model.Nombre" required />
+                </div>
+                <button type="submit" class="btn text-white" style="background-color: #050653; border-radius: 12px; padding: 8px 24px;">Actualizar</button>
+            </form>
+        </div>
+    </div>
+</div>      
+
