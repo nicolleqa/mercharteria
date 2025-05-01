@@ -88,6 +88,8 @@ namespace mercharteria.Controllers
             return View(categoria);
         }
 
+
+
         [HttpPost]
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Delete(int id)
@@ -112,6 +114,8 @@ namespace mercharteria.Controllers
 
             return RedirectToAction(nameof(Admin));
         }
+
+        
 
         private bool CategoriaExists(int id)
         {

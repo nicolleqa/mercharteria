@@ -60,5 +60,8 @@ namespace mercharteria.Controllers
                 .ToList();
             return View(productos);
         }
+
+        
+
     }
 }
