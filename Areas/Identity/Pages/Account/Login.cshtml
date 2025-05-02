@@ -74,9 +74,9 @@
                 <label asp-for="Input.RememberMe" class="form-check-label">Recordarme</label>
             </div>
             <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary mb-2">Iniciar sesión</button>
-            <button type="button" class="w-100 btn btn-outline-secondary" disabled>
+            <!--<button type="button" class="w-100 btn btn-outline-secondary" disabled>
                 <i class="bi bi-google"></i> Continuar con Google
-            </button>
+            </button> --> 
             <div class="mt-3">
                 <p><a id="forgot-password" asp-page="./ForgotPassword">¿Olvidaste tu contraseña?</a></p>
                 <p>¿No tienes una cuenta? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Regístrate</a></p>

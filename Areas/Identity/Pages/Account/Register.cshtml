@@ -4,36 +4,77 @@
     ViewData["Title"] = "Register";
 }
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
+<style>
+    .register-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 80px); /* ajusta si tienes navbar */
+        background-color: white;
+        margin-top: 80px;
+    }
 
-<br><br><br><br><br><br><br><br><br><br>
-<h1>@ViewData["Title"]</h1>
+    .brand-panel {
+        flex: 1;
+        background-color: white;
+        color: #00124e;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        animation: fadeIn 1s ease;
+        text-align: center;
+    }
 
-<div class="row">
-    <div class="col-md-4">
+    .brand-panel img {
+        max-width: 95%;
+        height: auto;
+    }
+
+    .form-panel {
+        flex: 1;
+        padding: 3rem;
+        background: white;
+        animation: zoomIn 0.8s ease;
+    }
+</style>
+
+<div class="register-container">
+    <div class="brand-panel animate__animated animate__fadeIn">
+        <img src="https://firebasestorage.googleapis.com/v0/b/merchanteria-f305c.firebasestorage.app/o/logo_azul.png?alt=media&token=18b2efd1-6eab-4c4a-aa55-1df13e5739a8" alt="Logo Arteria">
+        <h2>¡Únete a Arteria!</h2>
+        <p>Descubre tu estilo. Regístrate gratis.</p>
+    </div>
+
+    <div class="form-panel animate__animated animate__zoomIn">
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Create a new account.</h2>
+            <h2 class="mb-3">Crear una cuenta</h2>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="form-floating mb-3">
                 <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label asp-for="Input.Email">Email</label>
+                <label asp-for="Input.Email">Correo electrónico</label>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.Password">Password</label>
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Contraseña" />
+                <label asp-for="Input.Password">Contraseña</label>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Confirmar contraseña" />
+                <label asp-for="Input.ConfirmPassword">Confirmar contraseña</label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary mb-3">Registrarse</button>
+            <div class="text-center">
+                <p>¿Ya tienes cuenta? <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Inicia sesión</a></p>
+            </div>
         </form>
     </div>
 </div>
-
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
