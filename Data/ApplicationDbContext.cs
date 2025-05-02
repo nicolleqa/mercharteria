@@ -16,13 +16,16 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<PreOrden> DbSetPreOrden { get; set; }
     public DbSet<Orden> DbSetOrden { get; set; }
     public DbSet<Pago> DbSetPago { get; set; }
-
+    public DbSet<DetalleOrden> DbSetDetalleOrden { get; set; }
+    public DbSet<DatosCliente> DatosClientes { get; set; }
     public DbSet<Testimonio> Testimonios { get; set; }
     public DbSet<Personaje> Personajes { get; set; }
 
     public DbSet<Categoria> Categorias { get; set; }
 
     public DbSet<Contacto> Contactos { get; set; }
+
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
