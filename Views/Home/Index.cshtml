@@ -48,59 +48,35 @@
   </div>
 </section>
 
-  <section class="product-slider-section">
-    <h2>Todo para los fans de las pelis & series</h2>
-    <div class="products-slider-container">
-      <button class="slider-arrow prev-arrow">&#10094;</button>
-      <div class="products-slider">
-        <div class="slider-row">
-          <div class="product-card">
-            <img src="https://firebasestorage.googleapis.com/v0/b/merchanteria-f305c.firebasestorage.app/o/colec1.jpg?alt=media&token=8c6d9feb-ba7a-4aed-a8c5-04e64fb41440" alt="Guardianes de la Galaxia">
-            <h3>Guardianes de la Galaxia</h3>
-            <button class="discover-btn">¡Descubre más ahora!</button>
+
+<section class="product-slider-section">
+  <h2>Todo para los fans de las pelis & series</h2>
+  <div class="products-slider-container">
+    <button class="slider-arrow prev-arrow">&#10094;</button>
+    <div class="products-slider">
+      @{
+          var personajes = ViewBag.Personajes as List<mercharteria.Models.Personaje>;
+          int total = personajes?.Count ?? 0;
+      }
+      @for (int i = 0; i < total; i += 4)
+      {
+          <div class="slider-row">
+              @for (int j = i; j < i + 4 && j < total; j++)
+              {
+                  var personaje = personajes[j];
+                  <div class="product-card">
+                      <img src="@personaje.Imagen" alt="@personaje.Nombre" />
+                      <h3>@personaje.Nombre</h3>
+                      <button class="discover-btn">¡Descubre más ahora!</button>
+                  </div>
+              }
           </div>
-          <div class="product-card">
-            <img src="https://firebasestorage.googleapis.com/v0/b/merchanteria-f305c.firebasestorage.app/o/colec2.jpg?alt=media&token=920d7a38-a78a-45bf-b3df-9985fcf9e515" alt="Spiderman">
-            <h3>Spiderman</h3>
-            <button class="discover-btn">¡Descubre más ahora!</button>
-          </div>
-          <div class="product-card">
-            <img src="https://firebasestorage.googleapis.com/v0/b/merchanteria-f305c.firebasestorage.app/o/colec3.jpg?alt=media&token=52fb5869-636d-47a4-b1fd-ea4c8cf0af8c" alt="Deadpool">
-            <h3>Deadpool</h3>
-            <button class="discover-btn">¡Descubre más ahora!</button>
-          </div>
-          <div class="product-card">
-            <img src="https://firebasestorage.googleapis.com/v0/b/merchanteria-f305c.firebasestorage.app/o/colec4.jpg?alt=media&token=64003663-c8e3-47e3-83b4-3a5190127056" alt="The Boys">
-            <h3>The Boys</h3>
-            <button class="discover-btn">¡Descubre más ahora!</button>
-          </div>
-        </div>
-        <div class="slider-row">
-          <div class="product-card">
-            <img src="https://firebasestorage.googleapis.com/v0/b/merchanteria-f305c.firebasestorage.app/o/colec5.jpg?alt=media&token=09db8f2e-e086-48c0-9dd5-70e9baedae2c" alt="Dark">
-            <h3>Dark</h3>
-            <button class="discover-btn">¡Descubre más ahora!</button>
-          </div>
-          <div class="product-card">
-            <img src="https://firebasestorage.googleapis.com/v0/b/merchanteria-f305c.firebasestorage.app/o/colec6.jpeg?alt=media&token=da97316c-a489-443b-b00b-fd33d22266d5" alt="Squid Game">
-            <h3>Squid Games</h3>
-            <button class="discover-btn">¡Descubre más ahora!</button>
-          </div>
-          <div class="product-card">
-            <img src="https://firebasestorage.googleapis.com/v0/b/merchanteria-f305c.firebasestorage.app/o/colec7.jpg?alt=media&token=3366621a-75c7-41b6-a040-8f1716a9ef07" alt="Stranger Things">
-            <h3>Stranger Things</h3>
-            <button class="discover-btn">¡Descubre más ahora!</button>
-          </div>
-          <div class="product-card">
-            <img src="https://firebasestorage.googleapis.com/v0/b/merchanteria-f305c.firebasestorage.app/o/colec8.jpg?alt=media&token=25cdd52d-6cd5-4a54-ad68-351d81cd2b0d" alt="Friends">
-            <h3>Friends</h3>
-            <button class="discover-btn">¡Descubre más ahora!</button>
-          </div>
-        </div>
-      </div>
-      <button class="slider-arrow next-arrow">&#10095;</button>
+      }
     </div>
-  </section>
+    <button class="slider-arrow next-arrow">&#10095;</button>
+  </div>
+</section>
+
 
 
 <section class="about-us" id="nosotros" style="padding: 2rem;">

@@ -52,6 +52,7 @@ namespace mercharteria.Controllers
         {
             return View("Error!");
         }
+        
 
         [Authorize(Roles = "Administrador")]
         public IActionResult Admin()
@@ -61,6 +62,8 @@ namespace mercharteria.Controllers
                 .ToList();
             return View(productos);
         }
+
+        
 
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(int id)
