@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using mercharteria.Models;
 using mercharteria.Data;
 using Microsoft.EntityFrameworkCore;
@@ -61,7 +62,86 @@ namespace mercharteria.Controllers
             return View(productos);
         }
 
-        
+        [Authorize(Roles = "Administrador")]
+        public async Task<IActionResult> Edit(int id)
+        {
+           var producto = await _context.Productos.FindAsync(id);
+            if (producto == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.CategoriaId = new SelectList(_context.Categorias, "Id", "Nombre", producto.CategoriaId);
+            return View(producto);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
+        public async Task<IActionResult> Edit(int id, Producto producto)
+        {
+            if (id != producto.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(producto);
+                    await _context.SaveChangesAsync();
+                    TempData["Message"] = "Producto actualizado correctamente.";
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ProductoExists(producto.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Admin));
+            }
+            ViewBag.CategoriaId = new SelectList(_context.Categorias, "Id", "Nombre", producto.CategoriaId);
+            return View(producto);
+        }
+
+
+
+        [HttpPost]
+        [Authorize(Roles = "Administrador")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var producto = await _context.Productos.FindAsync(id);
+            if (producto == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                _context.Productos.Remove(producto);
+                await _context.SaveChangesAsync();
+                TempData["Message"] = "Producto eliminado correctamente.";
+            }
+            catch (Exception)
+            {
+                TempData["Error"] = "No se puede eliminar el producto.";
+                return RedirectToAction(nameof(Admin));
+            }
+
+            return RedirectToAction(nameof(Admin));
+        }
+
+        private bool ProductoExists(int id)
+        {
+            return _context.Productos.Any(e => e.Id == id);
+        }
+
 
     }
 }
