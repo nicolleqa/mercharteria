@@ -5,50 +5,92 @@
     ViewData["Title"] = "Login";
 }
 
-<br><br><br><br><br><br>
-<h1>@ViewData["Title"]</h1>
-<div class="row">
-    <div class="col-md-4">
-        <section>
-            <form id="account" method="post">
-                <h2>Use a local account to log in.</h2>
-                <hr />
-                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                    <label asp-for="Input.Email" class="form-label">Email</label>
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                </div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
-                    <label asp-for="Input.Password" class="form-label">Password</label>
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </div>
-                <div class="checkbox mb-3">
-                    <label asp-for="Input.RememberMe" class="form-label">
-                        <input class="form-check-input" asp-for="Input.RememberMe" />
-                        @Html.DisplayNameFor(m => m.Input.RememberMe)
-                    </label>
-                </div>
-                <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Login</button>
-                </div>
-                <div>
-                    <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    </p>
-                    <p>
-                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                    </p>
-                </div>
-            </form>
-        </section>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
+<style>
+    body {
+        background-color: white;
+    }
+    .logear {
+         display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px); /* deja espacio al navbar */
+    margin-top: 80px;
+    }
+    .brand-panel {
+        flex: 1;
+        background-color: white; /* fondo blanco */
+        color: #00124e;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        animation: fadeIn 1s ease;
+        text-align: center;
+    }
+    .brand-panel img {
+        max-width: 95%; /* más grande */
+        height: auto;
+    }
+    .brand-panel h2 {
+        margin-top: 1rem;
+    }
+    .form-panel {
+        flex: 1;
+        padding: 3rem;
+        background: white;
+        animation: zoomIn 0.8s ease;
+    }
+</style>
+
+<div class="logear">
+    <div class="brand-panel animate__animated animate__fadeIn">
+        <img src="https://firebasestorage.googleapis.com/v0/b/merchanteria-f305c.firebasestorage.app/o/logo_azul.png?alt=media&token=18b2efd1-6eab-4c4a-aa55-1df13e5739a8" alt="Logo Arteria">
+        <h2>Bienvenido a Arteria</h2>
+        <p>Conecta con tu estilo. Hazlo con Arteria.</p>
+    </div>
+    <div class="form-panel animate__animated animate__zoomIn">
+        <form id="account" method="post">
+            <h2 class="mb-3">Iniciar sesión con tu cuenta</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                <label asp-for="Input.Email" class="form-label">Email</label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Password" class="form-control" id="passwordField" autocomplete="current-password" aria-required="true" placeholder="password" />
+                <label asp-for="Input.Password" class="form-label">Contraseña</label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" onclick="togglePassword()" id="showPasswordCheck">
+                <label class="form-check-label" for="showPasswordCheck">Mostrar contraseña</label>
+            </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input" asp-for="Input.RememberMe" />
+                <label asp-for="Input.RememberMe" class="form-check-label">Recordarme</label>
+            </div>
+            <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary mb-2">Iniciar sesión</button>
+            <button type="button" class="w-100 btn btn-outline-secondary" disabled>
+                <i class="bi bi-google"></i> Continuar con Google
+            </button>
+            <div class="mt-3">
+                <p><a id="forgot-password" asp-page="./ForgotPassword">¿Olvidaste tu contraseña?</a></p>
+                <p>¿No tienes una cuenta? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Regístrate</a></p>
+            </div>
+        </form>
     </div>
 </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        function togglePassword() {
+            var field = document.getElementById("passwordField");
+            field.type = field.type === "password" ? "text" : "password";
+        }
+    </script>
 }
