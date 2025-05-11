@@ -58,9 +58,15 @@
             <input type="hidden" asp-for="UserName" />
             <input type="hidden" asp-for="Estado" value="Pendiente" />
 
-            <button type="submit" class="btn text-white w-100" style="background-color: #050653; border-radius: 12px; padding: 12px;">
-                <i class="bi bi-lock-fill"></i> Confirmar y pagar
-            </button>
+            <div class="d-flex justify-content-between gap-2 mt-4">
+                <a href="/Pago/DatosCliente" class="btn btn-outline-secondary w-50" style="border-radius: 12px; padding: 12px;">
+                    <i class="bi bi-arrow-left-circle-fill"></i> Volver
+                </a>
+
+                <button type="submit" class="btn text-white w-50" style="background-color: #050653; border-radius: 12px; padding: 12px;">
+                    <i class="bi bi-arrow-right-circle-fill"></i> confirmar y pagar
+                </button>
+            </div>
         </form>
     </div>
 </div>
