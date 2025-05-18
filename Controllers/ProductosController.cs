@@ -64,6 +64,32 @@ namespace mercharteria.Controllers
         }
 
         
+        [Authorize(Roles = "Administrador")]
+        public IActionResult Create()
+        {
+            ViewBag.CategoriaId = new SelectList(_context.Categorias, "Id", "Nombre");
+            return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
+        public async Task<IActionResult> Create(Producto producto)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(producto);
+                await _context.SaveChangesAsync();
+                TempData["Message"] = "Producto creado correctamente.";
+                return RedirectToAction(nameof(Admin));
+            }
+            ViewBag.CategoriaId = new SelectList(_context.Categorias, "Id", "Nombre", producto.CategoriaId);
+            return View(producto);
+        }
+
+
+        
 
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(int id)

@@ -41,6 +41,7 @@ namespace mercharteria.Controllers
             pago.UserName = _userManager.GetUserName(User);
             pago.MontoTotal = monto;
             _logger.LogInformation("El monto total es: " + pago.MontoTotal.ToString());
+
             return View(pago);
         }
 
@@ -105,7 +106,16 @@ namespace mercharteria.Controllers
         // Acción para mostrar el formulario de datos del cliente
         public IActionResult DatosCliente(decimal monto)
         {
-            var modelo = new DatosCliente { Monto = monto };
+            var modelo = new DatosCliente 
+            { 
+                Monto = monto,
+                NombreCompleto = TempData["NombreCompleto"]?.ToString(),
+                Correo = TempData["Correo"]?.ToString(),
+                Direccion = TempData["Direccion"]?.ToString(),
+                Referencia = TempData["Referencia"]?.ToString()
+            };
+
+            TempData.Keep(); // Mantener los datos en TempData para la siguiente carga
             return View(modelo);
         }
 
