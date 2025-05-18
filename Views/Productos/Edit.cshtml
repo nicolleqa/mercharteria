@@ -31,11 +31,11 @@
                     @Html.DropDownListFor(model => model.CategoriaId, ViewBag.CategoriaId as SelectList, "Seleccione una categoría", new { @class = "form-select", required = "required" })
                     <span asp-validation-for="CategoriaId" class="text-danger"></span>
                 </div>
-                @* <div class="mb-3">
+                <div class="mb-3">
                     <label asp-for="ImagenUrl" class="form-label">Imagen</label>
                     <input asp-for="ImagenUrl" type="file" class="form-control" accept="image/*" />
                     <span asp-validation-for="ImagenUrl" class="text-danger"></span>
-                </div> *@
+                </div> 
                 <div class="mb-3">
                     <button  type="submit" class="btn text-white"  style="background-color: #050653; border-radius: 12px; padding: 8px 24px;">
                         Guardar Cambios

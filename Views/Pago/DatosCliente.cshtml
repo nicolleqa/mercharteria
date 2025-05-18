@@ -16,7 +16,7 @@
                 <label class="form-label">Nombre completo</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
-                    <input asp-for="NombreCompleto" class="form-control" required />
+                    <input asp-for="NombreCompleto" class="form-control" value="@Model?.NombreCompleto" required />
                     <div class="invalid-feedback">Por favor, ingrese su nombre.</div>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                 <label class="form-label">Correo electrónico</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
-                    <input asp-for="Correo" class="form-control" type="email" required />
+                    <input asp-for="Correo" class="form-control" value="@Model?.Correo" type="email" required />
                     <div class="invalid-feedback">Ingrese un correo válido.</div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                 <label class="form-label">Dirección</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-geo-alt-fill"></i></span>
-                    <input asp-for="Direccion" class="form-control" required />
+                    <input asp-for="Direccion" class="form-control" value="@Model?.Direccion" required />
                     <div class="invalid-feedback">La dirección es obligatoria.</div>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                 <label class="form-label">Referencia (opcional)</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-signpost-split-fill"></i></span>
-                    <input asp-for="Referencia" class="form-control" />
+                    <input asp-for="Referencia" class="form-control" value="@Model?.Referencia" />
                 </div>
             </div>
 
