@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.VisualBasic;
 
 
 namespace mercharteria.Models
@@ -21,6 +22,8 @@ namespace mercharteria.Models
         [NotNull]
         public decimal Precio { get; set; }
         public string? ImagenUrl { get; set; }
+        [NotMapped]
+        public IFormFile? ImagenFile { get; set; }  
 
         // Relación con Categoria
         public int CategoriaId { get; set; }
