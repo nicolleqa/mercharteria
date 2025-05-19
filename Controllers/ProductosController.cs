@@ -10,6 +10,7 @@ using mercharteria.Models;
 using mercharteria.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using mercharteria.Helpers;
 
 
 namespace mercharteria.Controllers
@@ -79,10 +80,18 @@ namespace mercharteria.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (producto.ImagenFile != null)
+                {
+                    var helper = new FirebaseStorageHelper();
+                    var url = await helper.SubirImagenAutenticadoAsync(producto.ImagenFile);
+                    producto.ImagenUrl = url;
+                }
+
                 _context.Add(producto);
                 await _context.SaveChangesAsync();
                 TempData["Message"] = "Producto creado correctamente.";
                 return RedirectToAction(nameof(Admin));
+
             }
             ViewBag.CategoriaId = new SelectList(_context.Categorias, "Id", "Nombre", producto.CategoriaId);
             return View(producto);
@@ -116,23 +125,16 @@ namespace mercharteria.Controllers
 
             if (ModelState.IsValid)
             {
-                try
+                if (producto.ImagenFile != null)
                 {
-                    _context.Update(producto);
-                    await _context.SaveChangesAsync();
-                    TempData["Message"] = "Producto actualizado correctamente.";
+                    var helper = new FirebaseStorageHelper();
+                    var url = await helper.SubirImagenAutenticadoAsync(producto.ImagenFile);
+                    producto.ImagenUrl = url;
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProductoExists(producto.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+
+                _context.Add(producto);
+                await _context.SaveChangesAsync();
+                TempData["Message"] = "Producto editado correctamente.";
                 return RedirectToAction(nameof(Admin));
             }
             ViewBag.CategoriaId = new SelectList(_context.Categorias, "Id", "Nombre", producto.CategoriaId);
