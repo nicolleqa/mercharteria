@@ -125,18 +125,41 @@ namespace mercharteria.Controllers
 
             if (ModelState.IsValid)
             {
-                if (producto.ImagenFile != null)
+
+                try
                 {
-                    var helper = new FirebaseStorageHelper();
-                    var url = await helper.SubirImagenAutenticadoAsync(producto.ImagenFile);
-                    producto.ImagenUrl = url;
+                    // Obtener el producto original desde la base de datos
+                    var productoExistente = await _context.Productos.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+                    if (productoExistente == null)
+                    {
+                        return NotFound();
+                    }
+
+                    // Si se subió una nueva imagen, la subimos y reemplazamos la URL
+                    if (producto.ImagenFile != null)
+                    {
+                        var helper = new FirebaseStorageHelper();
+                        var url = await helper.SubirImagenAutenticadoAsync(producto.ImagenFile);
+                        producto.ImagenUrl = url;
+                    }
+                    else
+                    {
+                        // Si no se subió imagen nueva, mantenemos la URL anterior
+                        producto.ImagenUrl = productoExistente.ImagenUrl;
+                    }
+
+                    _context.Update(producto);
+                    await _context.SaveChangesAsync();
+                    TempData["Message"] = "Producto editado correctamente.";
+                    return RedirectToAction(nameof(Admin));
                 }
 
-                _context.Add(producto);
-                await _context.SaveChangesAsync();
-                TempData["Message"] = "Producto editado correctamente.";
-                return RedirectToAction(nameof(Admin));
+                catch (DbUpdateException ex)
+                {
+                    ModelState.AddModelError("", "Ocurrió un error al actualizar el producto. Detalles: " + ex.Message);
+                }
             }
+
             ViewBag.CategoriaId = new SelectList(_context.Categorias, "Id", "Nombre", producto.CategoriaId);
             return View(producto);
         }
