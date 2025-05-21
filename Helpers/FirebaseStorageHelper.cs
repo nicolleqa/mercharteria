@@ -33,5 +33,32 @@ namespace mercharteria.Helpers
 
             return $"https://firebasestorage.googleapis.com/v0/b/{_bucketName}/o/{Uri.EscapeDataString(nombreArchivo)}?alt=media";
         }
+
+        // Eliminar imagen
+        public async Task EliminarImagenAsync(string imageUrl)
+        {
+            GoogleCredential credential;
+            using (var stream = new FileStream(_rutaCredencialJson, FileMode.Open, FileAccess.Read))
+            {
+                credential = GoogleCredential.FromStream(stream);
+            }
+
+            var storage = StorageClient.Create(credential);
+
+            // Extraer el nombre del archivo desde la URL
+            var baseUrl = $"https://firebasestorage.googleapis.com/v0/b/{_bucketName}/o/";
+            if (!imageUrl.StartsWith(baseUrl))
+                return;
+
+            var nombreObjeto = imageUrl.Replace(baseUrl, "").Split("?")[0];
+            nombreObjeto = Uri.UnescapeDataString(nombreObjeto); // Decodificar caracteres especiales
+
+            await storage.DeleteObjectAsync(_bucketName, nombreObjeto);
+        }
+
+       
+
+
+
     }
 }

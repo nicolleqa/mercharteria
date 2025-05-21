@@ -4,50 +4,78 @@
     Layout = "_LayoutAdmin";
 }
 
-<h2>Editar Producto</h2>
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<div class="container-fluid" style="padding: 50px 60px;">
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <form asp-action="Edit" method="post" enctype="multipart/form-data">
-                <input type="hidden" asp-for="Id" />
-                <div class="mb-3">
-                    <label asp-for="Nombre" class="form-label">Nombre</label>
-                    <input asp-for="Nombre" class="form-control" required />
-                    <span asp-validation-for="Nombre" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="Descripcion" class="form-label">Descripción</label>
-                    <textarea asp-for="Descripcion" class="form-control" rows="4"></textarea>
-                    <span asp-validation-for="Descripcion" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="Precio" class="form-label">Precio</label>
-                    <input asp-for="Precio" type="number" step=".01" class="form-control" required />
-                    <span asp-validation-for="Precio" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="CategoriaId" class="form-label">Categoría</label>
-                    @Html.DropDownListFor(model => model.CategoriaId, ViewBag.CategoriaId as SelectList, "Seleccione una categoría", new { @class = "form-select", required = "required" })
-                    <span asp-validation-for="CategoriaId" class="text-danger"></span>
-                </div>
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
-                 <div class="form-group">
-                    <label for="ImagenFile">Imagen</label>
-                    <input asp-for="ImagenFile" type="file" class="form-control" accept="image/*" />
-                </div>
-                @if (!string.IsNullOrEmpty(Model?.ImagenUrl)){
+<div class="container mt-5 px-4">
+    <h2 class="mb-4 text-dark">
+        <i class="bi bi-pencil-square text-warning me-2"></i>Editar Producto
+    </h2>
 
-                    <div class="mt-2">
-                        <img src="@Model.ImagenUrl" alt="Imagen actual" width="150"/>
-                    </div>
-                }
+    <div class="card shadow rounded-4">
+        <div class="card-body p-4">
+            <form asp-action="Edit" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.Id)
 
                 <div class="mb-3">
-                    <button  type="submit" class="btn text-white"  style="background-color: #050653; border-radius: 12px; padding: 8px 24px;">
-                        Guardar Cambios
+                    <label asp-for="Nombre" class="form-label fw-semibold">Nombre</label>
+                    <input asp-for="Nombre" class="form-control rounded-3 shadow-sm" />
+                    <span asp-validation-for="Nombre" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Descripcion" class="form-label fw-semibold">Descripción</label>
+                    <textarea asp-for="Descripcion" class="form-control rounded-3 shadow-sm" rows="3"></textarea>
+                    <span asp-validation-for="Descripcion" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Precio" class="form-label fw-semibold">Precio</label>
+                    <input asp-for="Precio" class="form-control rounded-3 shadow-sm" type="number" step="0.01" />
+                    <span asp-validation-for="Precio" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="CategoriaId" class="form-label fw-semibold">Categoría</label>
+                    <select asp-for="CategoriaId" asp-items="ViewBag.CategoriaId" class="form-select rounded-3 shadow-sm"></select>
+                    <span asp-validation-for="CategoriaId" class="text-danger small"></span>
+                </div>
+                <!-- Imagen actual -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Imagen actual</label><br />
+                    @if (!string.IsNullOrEmpty(Model.ImagenUrl))
+                    {
+                        <img src="@Model.ImagenUrl" alt="Imagen actual" class="img-thumbnail rounded shadow-sm mb-2" style="max-height: 200px;" />
+                    }
+                    else
+                    {
+                        <p class="text-muted fst-italic">No hay imagen registrada</p>
+                    }
+                </div>
+                <!-- Subir nueva imagen -->
+                <div class="mb-3">
+                    <label asp-for="ImagenFile" class="form-label fw-semibold">Cambiar imagen (opcional)</label>
+                    <input asp-for="ImagenFile" type="file" class="form-control rounded-3 shadow-sm" accept="image/*" onchange="mostrarVistaPrevia(this)" />
+                    <span asp-validation-for="ImagenFile" class="text-danger small"></span>
+                </div>
+                <!-- Vista previa instantánea -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Vista previa nueva imagen</label><br />
+                    <img id="preview" class="img-thumbnail shadow-sm" style="max-height: 200px; display: none;" />
+                </div>
+
+                <div class="mt-4 d-flex gap-3">
+                    <button type="submit" class="btn text-white px-4 py-2 fw-semibold" style="background-color: #050653; border-radius: 12px;">
+                        <i class="bi bi-save-fill me-1"></i> Guardar cambios
                     </button>
-                    <a asp-action="Admin" class="btn btn-secondary">Cancelar</a>
+                    <a asp-action="Admin" class="btn btn-outline-secondary px-4 py-2 rounded-3">
+                        <i class="bi bi-x-circle me-1"></i> Cancelar
+                    </a>
                 </div>
             </form>
         </div>
@@ -55,5 +83,26 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <partial name="_ValidationScriptsPartial" />
+
+    <!-- Script para vista previa -->
+    <script>
+        function mostrarVistaPrevia(input) {
+            const preview = document.getElementById('preview');
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                preview.style.display = 'none';
+            }
+        }
+    </script>
 }
+
+
+
+
