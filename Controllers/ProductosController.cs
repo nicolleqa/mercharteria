@@ -135,12 +135,21 @@ namespace mercharteria.Controllers
                         return NotFound();
                     }
 
-                    // Si se subió una nueva imagen, la subimos y reemplazamos la URL
+                    var helper = new FirebaseStorageHelper();
+
+                    // Si se subió una nueva imagen
                     if (producto.ImagenFile != null)
                     {
-                        var helper = new FirebaseStorageHelper();
-                        var url = await helper.SubirImagenAutenticadoAsync(producto.ImagenFile);
-                        producto.ImagenUrl = url;
+                        //Eliminar imagen anterior de Firebase si existe
+                        if (!string.IsNullOrEmpty(productoExistente.ImagenUrl))
+                        {
+                            await helper.EliminarImagenAsync(productoExistente.ImagenUrl);
+                        }
+
+                        //Subir la nueva imagen y asignar URL
+                        var nuevaUrl = await helper.SubirImagenAutenticadoAsync(producto.ImagenFile);
+                        producto.ImagenUrl = nuevaUrl;
+                        
                     }
                     else
                     {
@@ -190,6 +199,9 @@ namespace mercharteria.Controllers
 
             return RedirectToAction(nameof(Admin));
         }
+
+
+
 
         private bool ProductoExists(int id)
         {
