@@ -60,7 +60,7 @@ namespace mercharteria.Controllers
                 .Include(p => p.Producto)
                 .Where(s =>
                     s.UserName == pago.UserName &&
-                    s.Estado == "PENDIENTE" // importante: así lo guardas en PreOrdenController
+                    s.Estado == "PENDIENTE" // 
                 )
                 .ToList();
 
