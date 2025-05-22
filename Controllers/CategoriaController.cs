@@ -36,6 +36,7 @@ namespace mercharteria.Controllers
             {
                 _context.Add(categoria);
                 await _context.SaveChangesAsync();
+                TempData["Message"] = "Categoría creada correctamente.";
                 return RedirectToAction(nameof(Admin));
             }
             return View(categoria);
@@ -57,6 +58,7 @@ namespace mercharteria.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrador")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Descripcion")] Categoria categoria)
         {
@@ -71,6 +73,7 @@ namespace mercharteria.Controllers
                 {
                     _context.Update(categoria);
                     await _context.SaveChangesAsync();
+                    TempData["Message"] = "Categoría actualizada correctamente.";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -108,7 +111,7 @@ namespace mercharteria.Controllers
             }
             catch (Exception)
             {
-                TempData["Error"] = "No se puede eliminar la categoría porque tiene productos asociados.";
+                TempData["Message"] = "No se puede eliminar la categoría porque tiene productos asociados.";
                 return RedirectToAction(nameof(Admin));
             }
 
