@@ -2,6 +2,10 @@
 @{
     ViewData["Title"] = "Productos";
 }
+
+<!--Bootstrap-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
 <section id="productos">
     <h2 style="margin-top: 130px; text-align: center;">Nuestros Productos</h2>
     <div style="margin: 20px 0;">
@@ -13,6 +17,7 @@
             }
         </select>
     </div>
+ 
     <div class="productos-container">
       @foreach (var item in Model)
       { 
@@ -23,10 +28,18 @@
           <p class="card-text"><strong>@item.Precio.ToString("C")</strong></p>
 
           <form asp-controller="Cart" asp-action="AddToCart" method="post">
+              @Html.AntiForgeryToken()
               <input type="hidden" name="productId" value="@item.Id" />
               <input type="hidden" name="cantidad" value="1" />
-              <a class="btn me-3" style="background-color: transparent; border-radius: 20px; border: 1px solid #050653; color: #050653;" asp-controller="Carrito" asp-action="Add" asp-route-id="@item.Id">Agregar carrito</a>
+              @* <a class="btn me-3" style="background-color: transparent; border-radius: 20px; border: 1px solid #050653; color: #050653;" asp-controller="Carrito" asp-action="Add" asp-route-id="@item.Id">Agregar carrito</a> *@
+            <div style="display: flex; justify-content: center; gap: 10px; margin-top: 10px;">
+                <button type="button" class="btn me-3 agregar-carrito" 
+                style="background-color: transparent; border-radius: 20px; 
+                border: 1px solid #050653; color: #050653;" data-id="@item.Id">
+                    Agregar carrito
+                </button>
               <a class="btn text-white" asp-action="Details" style="background-color: #050653; border-radius: 20px;" asp-route-id="@item.Id">Ver</a>
+            </div>
           </form>
         </div>
       }
@@ -42,4 +55,46 @@
             window.location.href = '/Productos/Index';
         }
     }
+</script>
+
+
+<!-- SweetAlert2 CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    document.querySelectorAll('.agregar-carrito').forEach(button => {
+        button.addEventListener('click', function () {
+            const idProducto = this.getAttribute('data-id');
+            const token = document.querySelector('[name="__RequestVerificationToken"]').value;
+
+            fetch('/Carrito/Add?id=' + idProducto + '&cantidad=1', {
+                method: 'POST',
+                headers: {
+                    'RequestVerificationToken': document.querySelector('[name="__RequestVerificationToken"]')?.value || '',
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Producto agregado al carrito',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Por favor debe loguearse antes de agregar un producto al carrito',
+                    });
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Por favor debe loguearse antes de agregar un producto al carrito',
+                });
+            });
+        });
+    });
 </script>
