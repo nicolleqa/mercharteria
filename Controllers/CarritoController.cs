@@ -52,20 +52,24 @@ namespace mercharteria.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(int? id, int cantidad)
         {
             var userID = _userManager.GetUserName(User);
             if (userID == null)
             {
                 _logger.LogInformation("No existe usuario");
-                ViewData["Message"] = "Por favor debe loguearse antes de agregar un producto";
-                return RedirectToAction("Index", "Productos");
+                return Unauthorized(new { message = "Por favor debe loguearse antes de agregar un producto al carrito" });
+                // TempData["Message"] = "Por favor debe loguearse antes de agregar un producto";
+                // return RedirectToAction("Index", "Productos");
             }
 
             var producto = await _context.Productos.Include(p => p.Categoria).FirstOrDefaultAsync(p => p.Id == id);
             if (producto == null)
             {
-                return NotFound();
+                return NotFound(new { message = "Producto no encontrado" });
+                // return NotFound();
             }
 
             PreOrden proforma = new PreOrden
@@ -77,9 +81,10 @@ namespace mercharteria.Controllers
             };
             _context.Add(proforma);
             await _context.SaveChangesAsync();
-            ViewData["Message"] = "Se Agrego al carrito";
+            // TempData["Message"] = "Se Agrego al carrito";
             _logger.LogInformation("Se agrego un producto al carrito");
-            return RedirectToAction("Index", "Productos");
+            return Ok(new { message = "Producto agregado al carrito correctamente" });
+            // return RedirectToAction("Index", "Productos");
         }
 
 
