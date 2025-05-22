@@ -187,13 +187,21 @@ namespace mercharteria.Controllers
 
             try
             {
+                // Eliminar la imagen de Firebase
+                if (!string.IsNullOrEmpty(producto.ImagenUrl))
+                {
+                    var helper = new FirebaseStorageHelper();
+                    await helper.EliminarImagenAsync(producto.ImagenUrl);
+                }
+
+                // Eliminar el producto de la base de datos
                 _context.Productos.Remove(producto);
                 await _context.SaveChangesAsync();
                 TempData["Message"] = "Producto eliminado correctamente.";
             }
             catch (Exception)
             {
-                TempData["Error"] = "No se puede eliminar el producto.";
+                TempData["Message"] = "No se puede eliminar el producto.";
                 return RedirectToAction(nameof(Admin));
             }
 
