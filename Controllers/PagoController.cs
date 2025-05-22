@@ -46,62 +46,61 @@ namespace mercharteria.Controllers
         }
 
         [HttpPost]
+        [HttpPost]
         public IActionResult Pagar(Pago pago)
         {
-            // 1. Guardar el pago primero en la base de datos
+            // 1. Guardar el pago en la base de datos
             pago.FechaPago = DateTime.UtcNow;
-            pago.Estado = "Cancelado"; // o como desees
+            pago.Estado = "Cancelado"; // Estado del pago
             _context.Add(pago);
-            _context.SaveChanges(); // Aquí se genera el ID
+            _context.SaveChanges(); // Aquí se genera el ID del pago
 
-            // 2. Obtener los productos del carrito
+            // 2. Obtener los productos del carrito correctamente
             var itemsCarrito = _context.DbSetPreOrden
-            .Include(p => p.Producto)
-            .Where(s => s.UserName.Equals(pago.UserName) && s.Estado.Equals("Pendiente"));
+                .Include(p => p.Producto)
+                .Where(s =>
+                    s.UserName == pago.UserName &&
+                    s.Estado == "PENDIENTE" // 
+                )
+                .ToList();
 
-            // 3. Crear la orden y asignar el pago ya con ID
-            Orden pedido = new Orden
+            // 3. Crear la orden con la fecha y vincular el pago
+            var pedido = new Orden
             {
                 UserName = pago.UserName,
                 Total = pago.MontoTotal,
-                Pago = pago,
-                Estado = "Pendiente"
+                Fecha = DateTime.UtcNow, // Se guarda la fecha actual
+                Estado = "Pendiente",
+                PagoId = pago.Id
             };
-                _context.Add(pedido);
+            _context.Add(pedido);
+            _context.SaveChanges(); // Genera pedido.Id
 
-            // 4. Agregar los detalles de la orden
-            List<DetalleOrden> itemsPedido = new List<DetalleOrden>();
-            foreach (var item in itemsCarrito.ToList())
+            // 4. Crear detalles de la orden
+            var detalles = itemsCarrito.Select(item => new DetalleOrden
             {
-                DetalleOrden detallePedido = new DetalleOrden
-            {
-                Orden = pedido,
-                Precio = item.Precio,
-                Producto = item.Producto,
-                Cantidad = item.Cantidad,
-                Subtotal = item.Precio * item.Cantidad,
                 OrdenId = pedido.Id,
-                ProductoId = item.Producto.Id
-            };
-                itemsPedido.Add(detallePedido);
-            }
+                ProductoId = item.Producto.Id,
+                Precio = item.Precio,
+                Cantidad = item.Cantidad,
+                Subtotal = item.Precio * item.Cantidad
+            }).ToList();
+            _context.AddRange(detalles);
 
-                _context.AddRange(itemsPedido);
-
-            // 5. Actualizar estado del carrito
-            foreach (PreOrden p in itemsCarrito.ToList())
+            // 5. Cambiar estado del carrito a "Pagado"
+            foreach (var p in itemsCarrito)
             {
                 p.Estado = "Pagado";
             }
-                _context.UpdateRange(itemsCarrito);
+            _context.UpdateRange(itemsCarrito);
 
-            // 6. Guardar todo lo restante
-                _context.SaveChanges();
+            // 6. Guardar todo lo pendiente
+            _context.SaveChanges();
 
-                ViewData["Mensaje"] = "El pago se ha realizado con éxito¡";
-
-                return View("Create");
+            ViewData["Mensaje"] = "El pago se ha realizado con éxito¡";
+            return View("Create");
         }
+
 
         // Acción para mostrar el formulario de datos del cliente
         public IActionResult DatosCliente(decimal monto)

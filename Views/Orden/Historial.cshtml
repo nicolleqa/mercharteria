@@ -1,0 +1,66 @@
+@model List<mercharteria.Models.Orden>
+
+@{
+    ViewData["Title"] = "Mi Historial de Órdenes";
+}
+
+<div class="container" style="margin-top: 150px;">
+    <h1 class="mb-4">Mi Historial de Órdenes</h1>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            Aún no tienes órdenes registradas.
+        </div>
+    }
+    else
+    {
+        @foreach (var orden in Model)
+        {
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header">
+                    <strong>Orden #@orden.Id</strong> — @orden.Fecha.ToString("dd/MM/yyyy HH:mm")
+                    <span class="badge bg-secondary float-end">@orden.Estado</span>
+                </div>
+                <div class="card-body">
+                    <h5>Total: @orden.Total.ToString("C")</h5>
+                    @if (orden.DatosCliente != null)
+                    {
+                        <p>
+                            <strong>Cliente:</strong> @orden.DatosCliente.NombreCompleto<br />
+                            <strong>Email:</strong> @orden.DatosCliente.Correo<br />
+                            <strong>Dirección:</strong> @orden.DatosCliente.Direccion
+                            @if (!string.IsNullOrEmpty(orden.DatosCliente.Referencia))
+                            {
+                                <br /><strong>Referencia:</strong> @orden.DatosCliente.Referencia
+                            }
+                        </p>
+                    }
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Imagen</th>
+                                <th>Producto</th>
+                                <th>Cant.</th>
+                                <th>Precio</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var d in orden.Detalles!)
+                            {
+                                <tr>
+                                    <td><img src="@d.Producto!.ImagenUrl" alt="Imagen de @d.Producto.Nombre" width="80" height="80" class="rounded border" /></td>
+                                    <td>@d.Producto!.Nombre</td>
+                                    <td>@d.Cantidad</td>
+                                    <td>@d.Precio.ToString("C")</td>
+                                    <td>@d.Subtotal.ToString("C")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    }
+</div>
