@@ -30,7 +30,7 @@ public class ApplicationDbContext : IdentityDbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        
+
         // Configuración de la relación muchos a muchos entre Producto y Personaje
         modelBuilder.Entity<Producto>()
             .HasMany(p => p.Personajes)
@@ -41,6 +41,24 @@ public class ApplicationDbContext : IdentityDbContext
             .HasOne(p => p.Categoria)
             .WithMany(c => c.Productos)
             .HasForeignKey(p => p.CategoriaId);
+
+         // 1 Orden tiene muchos DetalleOrden
+        modelBuilder.Entity<Orden>()
+            .HasMany(o => o.Detalles)
+            .WithOne(d => d.Orden!)
+            .HasForeignKey(d => d.OrdenId);
+
+        // 1 Orden tiene un Pago opcional
+        modelBuilder.Entity<Orden>()
+            .HasOne(o => o.Pago)
+            .WithMany()
+            .HasForeignKey(o => o.PagoId);
+
+        // 1 Orden tiene un DatosCliente opcional
+        modelBuilder.Entity<Orden>()
+            .HasOne(o => o.DatosCliente)
+            .WithMany()
+            .HasForeignKey(o => o.DatosClienteId);    
     }
 }
 
