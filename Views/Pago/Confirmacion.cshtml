@@ -1,0 +1,23 @@
+@model mercharteria.Models.Pago
+
+@{
+    ViewData["Title"] = "Pago confirmado";
+}
+
+<div class="container mt-5">
+    <div class="card p-4 shadow">
+        <h2 class="text-success text-center">¡Pago realizado con éxito!</h2>
+        <p class="text-center">Gracias por su compra.</p>
+        <hr />
+        <h4>Resumen del pago:</h4>
+        <ul>
+            <li><strong>Nombre:</strong> @Model.NombreTarjeta</li>
+            <li><strong>Monto:</strong> S/. @Model.MontoTotal</li>
+            <li><strong>Fecha:</strong> @Model.FechaPago.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</li>
+        </ul>
+
+        <div class="text-center mt-4">
+            <a href="/" class="btn btn-primary">Volver al inicio</a>
+        </div>
+    </div>
+</div>

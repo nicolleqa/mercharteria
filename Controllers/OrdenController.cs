@@ -36,5 +36,37 @@ namespace mercharteria.Controllers
 
             return View(ordenes);
         }
+        [Authorize(Roles = "Administrador")]
+        public async Task<IActionResult> Admin()
+        {
+            var ordenes = await _context.DbSetOrden
+                .Include(o => o.Detalles!)
+                    .ThenInclude(d => d.Producto)
+                .OrderByDescending(o => o.Fecha)
+                .ToListAsync();
+
+            return View(ordenes);
+        }
+        [Authorize(Roles = "Administrador")]
+            [Authorize(Roles = "Administrador")]
+    [Authorize(Roles = "Administrador")]
+public async Task<IActionResult> Detalle(int id)
+{
+    var orden = await _context.DbSetOrden
+        .Include(o => o.Pago)
+            .ThenInclude(p => p.DatosCliente)
+        .Include(o => o.Detalles!)
+            .ThenInclude(d => d.Producto)
+        .FirstOrDefaultAsync(o => o.Id == id);
+
+    if (orden == null)
+    {
+        return NotFound();
+    }
+
+    return View(orden);
+}
+
+
     }
 }

@@ -17,19 +17,28 @@ namespace mercharteria.Models
 
         public DateTime Fecha { get; set; }
 
-        // Nuevo: FK a Pago
+        public string? Estado { get; set; }
+
+        // Relación con Pago (que a su vez contiene DatosCliente)
         public int? PagoId { get; set; }
         [ForeignKey("PagoId")]
         public virtual Pago? Pago { get; set; }
 
-        // Nuevo: FK a DatosCliente
-        public int? DatosClienteId { get; set; }
-        [ForeignKey("DatosClienteId")]
-        public virtual DatosCliente? DatosCliente { get; set; }
+        // Los datos del cliente se obtienen desde el Pago      
+        [NotMapped]
+        public DatosCliente? DatosCliente
+        {
+            get => Pago?.DatosCliente;
+            set { /* necesario para evitar error de EF Core */ }
+        }
 
-        // Nuevo: colección de detalles
-        public virtual ICollection<DetalleOrden>? Detalles { get; set; }
 
-        public string? Estado { get; set; }
+
+        // Detalles de la orden
+        public virtual ICollection<DetalleOrden> Detalles { get; set; } = new List<DetalleOrden>();
+
+        // Propiedad para saber si está pagada
+        [NotMapped]
+        public bool EstaPagado => Pago != null;
     }
 }

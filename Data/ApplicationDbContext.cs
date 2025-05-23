@@ -58,7 +58,7 @@ public class ApplicationDbContext : IdentityDbContext
         modelBuilder.Entity<Orden>()
             .HasOne(o => o.DatosCliente)
             .WithMany()
-            .HasForeignKey(o => o.DatosClienteId);    
+            ;    
     }
 }
 
