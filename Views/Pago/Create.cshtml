@@ -16,6 +16,7 @@
         }
 
         <form asp-action="Pagar" method="post" class="needs-validation" novalidate>
+            <input type="hidden" name="datosClienteId" value="@ViewBag.DatosClienteId" />
             <div class="mb-3">
                 <label class="form-label">Nombre del titular</label>
                 <div class="input-group">
