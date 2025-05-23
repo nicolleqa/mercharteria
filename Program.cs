@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using mercharteria.Services;
 using System.Threading.Tasks;
 using mercharteria.Config;
+using mercharteria.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,9 @@ builder.Services.AddSession();
 builder.Services.Configure<SpotifyConfig>(
     builder.Configuration.GetSection("Spotify"));
 builder.Services.AddScoped<SpotifyService>();
+
+//Firebase Storage
+builder.Services.AddSingleton<FirebaseStorageHelper>();
 
 
 builder.Services.AddTransient<IEmailSender, DummyEmailSender>();
