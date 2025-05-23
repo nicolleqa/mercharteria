@@ -11,6 +11,7 @@ using mercharteria.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using mercharteria.Helpers;
+using mercharteria.Services;
 
 
 namespace mercharteria.Controllers
@@ -21,10 +22,13 @@ namespace mercharteria.Controllers
         private readonly ILogger<ProductosController> _logger;
         private readonly ApplicationDbContext _context;
 
-        public ProductosController(ILogger<ProductosController> logger, ApplicationDbContext context)
+        private readonly SpotifyService _spotifyService;
+
+        public ProductosController(ILogger<ProductosController> logger, ApplicationDbContext context, SpotifyService spotifyService)
         {
             _logger = logger;
             _context = context;
+            _spotifyService = spotifyService;
         }
 
         public IActionResult Index(int? categoriaId)
@@ -69,6 +73,7 @@ namespace mercharteria.Controllers
         public IActionResult Create()
         {
             ViewBag.CategoriaId = new SelectList(_context.Categorias, "Id", "Nombre");
+            ViewBag.Personajes = new MultiSelectList(_context.Personajes, "Id", "Nombre");
             return View();
         }
 
@@ -76,7 +81,7 @@ namespace mercharteria.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
-        public async Task<IActionResult> Create(Producto producto)
+        public async Task<IActionResult> Create(Producto producto, int[] PersonajeIds)
         {
             if (ModelState.IsValid)
             {
@@ -87,6 +92,13 @@ namespace mercharteria.Controllers
                     producto.ImagenUrl = url;
                 }
 
+                if (PersonajeIds != null && PersonajeIds.Any())
+                {
+                    producto.Personajes = await _context.Personajes
+                        .Where(p => PersonajeIds.Contains(p.Id))
+                        .ToListAsync();
+                }
+
                 _context.Add(producto);
                 await _context.SaveChangesAsync();
                 TempData["Message"] = "Producto creado correctamente.";
@@ -94,6 +106,7 @@ namespace mercharteria.Controllers
 
             }
             ViewBag.CategoriaId = new SelectList(_context.Categorias, "Id", "Nombre", producto.CategoriaId);
+            ViewBag.Personajes = new MultiSelectList(_context.Personajes, "Id", "Nombre");
             return View(producto);
         }
 
@@ -208,7 +221,41 @@ namespace mercharteria.Controllers
             return RedirectToAction(nameof(Admin));
         }
 
+        public async Task<IActionResult> PorPersonaje(int id)
+        {
+            try
+            {
+                var personaje = await _context.Personajes
+                    .FirstOrDefaultAsync(p => p.Id == id);
 
+                if (personaje == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+                var productos = await _context.Productos
+                    .Include(p => p.Categoria)
+                    .Include(p => p.Personajes)
+                    .Where(p => p.Personajes.Any(per => per.Id == id))
+                    .ToListAsync();
+
+                ViewBag.PersonajeNombre = personaje.Nombre;
+                ViewBag.PersonajeBanner = personaje.BannerUrl;
+                ViewBag.Categorias = await _context.Categorias.ToListAsync();
+
+                if (!string.IsNullOrEmpty(personaje.SpotifyPlaylistId))
+                {
+                    ViewBag.SpotifyPlaylistUrl = await _spotifyService.GetPlaylistEmbedUrl(personaje.SpotifyPlaylistId);
+                }
+
+                return View(productos);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al obtener productos por personaje");
+                return RedirectToAction("Index", "Home");
+            }
+        }
 
 
         private bool ProductoExists(int id)

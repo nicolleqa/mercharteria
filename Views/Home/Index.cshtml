@@ -67,7 +67,14 @@
                   <div class="product-card">
                       <img src="@personaje.Imagen" alt="@personaje.Nombre" />
                       <h3>@personaje.Nombre</h3>
-                      <button class="discover-btn">¡Descubre más ahora!</button>
+                      <a asp-controller="Productos" 
+                        asp-action="PorPersonaje" 
+                        asp-route-id="@personaje.Id" 
+                        class="btn text-white" 
+                        style="background-color: #050653; border-radius: 12px; padding: 8px 24px;">
+                          ¡Descubre más ahora!
+                      </a>
+                      @* <button class="discover-btn">¡Descubre más ahora!</button> *@
                   </div>
               }
           </div>

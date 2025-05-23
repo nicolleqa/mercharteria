@@ -1,0 +1,76 @@
+@model IEnumerable<mercharteria.Models.Personaje>
+
+@{
+    ViewData["Title"] = "Administración de Personajes";
+    Layout = "_LayoutAdmin";
+}
+
+<div class="container-fluid" style="padding: 120px 60px;">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3">Personajes</h1>
+        <a asp-action="Create" class="btn text-white" 
+           style="background-color: #050653; border-radius: 12px; padding: 8px 24px;">
+            Crear Personaje
+        </a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Imagen</th>
+                            <th>Nombre</th>
+                            <th>Playlist ID</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <img src="@item.Imagen" alt="@item.Nombre" 
+                                         style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;" />
+                                </td>
+                                <td>@item.Nombre</td>
+                                <td>@item.SpotifyPlaylistId</td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <a asp-action="Edit" asp-route-id="@item.Id" 
+                                           class="btn btn-sm" style="color: #050653;">
+                                            <i class="bi bi-pencil-fill"></i>
+                                        </a>
+                                        <form asp-action="Delete" asp-route-id="@item.Id" 
+                                              method="post" style="display: inline;"
+                                              onsubmit="return confirm('¿Está seguro de eliminar este personaje?')">
+                                            <button type="submit" class="btn btn-sm text-danger">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if (TempData["Message"] != null)
+    {
+        <script>
+            Swal.fire({
+                title: 'Éxito',
+                text: '@TempData["Message"]',
+                icon: 'success',
+                confirmButtonColor: '#050653'
+            });
+        </script>
+    }
+}

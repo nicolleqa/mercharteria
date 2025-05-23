@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using mercharteria.Services;
 using System.Threading.Tasks;
+using mercharteria.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,10 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddSession();
+// ...existing code...
+builder.Services.Configure<SpotifyConfig>(
+    builder.Configuration.GetSection("Spotify"));
+builder.Services.AddScoped<SpotifyService>();
 
 
 builder.Services.AddTransient<IEmailSender, DummyEmailSender>();

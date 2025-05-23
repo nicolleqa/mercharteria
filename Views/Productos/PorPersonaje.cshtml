@@ -1,0 +1,180 @@
+@model IEnumerable<mercharteria.Models.Producto>
+
+@{
+    ViewData["Title"] = $"Productos de {ViewBag.PersonajeNombre}";
+}
+
+<style>
+    .banner-container {
+        position: relative;
+        width: 100%;
+        height: 400px;
+        overflow: hidden;
+        margin-top: 76px;
+    }
+
+    .banner-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .banner-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(transparent, rgba(0,0,0,0.7));
+        padding: 2rem;
+    }
+
+    .banner-title {
+        color: white;
+        margin: 0;
+        font-size: 2.5rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .productos-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 2rem;
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .producto {
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 1rem;
+        text-align: center;
+        transition: transform 0.3s ease;
+        background: white;
+    }
+
+    .producto:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .producto img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+    }
+
+    .producto h5 {
+        margin: 0.5rem 0;
+        color: #050653;
+        font-size: 1.1rem;
+    }
+
+    .producto .precio {
+        font-size: 1.2rem;
+        color: #050653;
+        font-weight: bold;
+        margin: 1rem 0;
+    }
+
+    .categoria-filter {
+        max-width: 200px;
+        margin: 2rem auto;
+    }
+
+    .empty-message {
+        grid-column: 1/-1;
+        text-align: center;
+        padding: 2rem;
+        color: #666;
+    }
+</style>
+
+<div class="banner-container">
+    @if (!string.IsNullOrEmpty(ViewBag.PersonajeBanner))
+    {
+        <img src="@ViewBag.PersonajeBanner" alt="@ViewBag.PersonajeNombre" class="banner-image">
+    }
+    else
+    {
+        <img src="/images/default-banner.jpg" alt="Banner por defecto" class="banner-image">
+    }
+    <div class="banner-overlay">
+        <h1 class="banner-title">@ViewBag.PersonajeNombre</h1>
+    </div>
+</div>
+
+@if (!string.IsNullOrEmpty(ViewBag.SpotifyPlaylistUrl))
+{
+    <div class="spotify-container" style="max-width: 1200px; margin: 2rem auto;">
+        <iframe src="@ViewBag.SpotifyPlaylistUrl" 
+                width="100%" 
+                height="352" 
+                frameborder="0" 
+                allowtransparency="true" 
+                allow="encrypted-media"
+                style="border-radius: 12px;">
+        </iframe>
+    </div>
+}
+
+<div class="categoria-filter">
+    <select id="categoriaFilter" class="form-select" onchange="filterByCategory(this.value)">
+        <option value="0">Todas las categorías</option>
+        @foreach (var categoria in ViewBag.Categorias)
+        {
+            <option value="@categoria.Id">@categoria.Nombre</option>
+        }
+    </select>
+</div>
+
+<div class="productos-container">
+    @if (!Model.Any())
+    {
+        <div class="empty-message">
+            <p>No hay productos disponibles para este personaje.</p>
+        </div>
+    }
+    else
+    {
+        @foreach (var item in Model)
+        { 
+            <div class="producto">
+                <img src="@item.ImagenUrl" alt="@item.Nombre">
+                <h5>@item.Nombre</h5>
+                <p class="text-muted">@item.Descripcion</p>
+                <p class="precio">@item.Precio.ToString("C")</p>
+
+                <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="productId" value="@item.Id" />
+                    <input type="hidden" name="cantidad" value="1" />
+                    <div style="display: flex; justify-content: center; gap: 10px; margin-top: 10px;">
+                        <button type="button" class="btn me-3 agregar-carrito" 
+                                style="background-color: transparent; border-radius: 20px; 
+                                border: 1px solid #050653; color: #050653;" 
+                                data-id="@item.Id">
+                            Agregar carrito
+                        </button>
+                    </div>
+                </form>
+            </div>
+        }
+    }
+</div>
+
+@section Scripts {
+    <script>
+        function filterByCategory(categoriaId) {
+            const url = new URL(window.location.href);
+            if (categoriaId === "0") {
+                url.searchParams.delete('categoriaId');
+            } else {
+                url.searchParams.set('categoriaId', categoriaId);
+            }
+            window.location.href = url.toString();
+        }
+    </script>
+}

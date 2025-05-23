@@ -1,0 +1,71 @@
+@model mercharteria.Models.Personaje
+
+@{
+    ViewData["Title"] = "Editar Personaje";
+    Layout = "_LayoutAdmin";
+}
+
+<div class="container-fluid" style="padding: 120px 0;">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="mb-4">Editar Personaje</h2>
+
+                    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="Imagen" />
+                        <input type="hidden" asp-for="BannerUrl" />
+
+                        <div class="mb-3">
+                            <label asp-for="Nombre" class="form-label">Nombre</label>
+                            <input asp-for="Nombre" class="form-control" required />
+                            <span asp-validation-for="Nombre" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="ImagenFile" class="form-label">Imagen Principal</label>
+                            <div class="mb-2">
+                                <img src="@Model.Imagen" alt="Imagen actual" 
+                                     style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px;" />
+                            </div>
+                            <input asp-for="ImagenFile" type="file" class="form-control" accept="image/*" />
+                            <small class="text-muted">Deja vacío para mantener la imagen actual</small>
+                            <span asp-validation-for="ImagenFile" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="BannerFile" class="form-label">Imagen Banner</label>
+                            <div class="mb-2">
+                                <img src="@Model.BannerUrl" alt="Banner actual" 
+                                     style="width: 200px; height: 80px; object-fit: cover; border-radius: 8px;" />
+                            </div>
+                            <input asp-for="BannerFile" type="file" class="form-control" accept="image/*" />
+                            <small class="text-muted">Deja vacío para mantener la imagen actual</small>
+                            <span asp-validation-for="BannerFile" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="SpotifyPlaylistId" class="form-label">ID Playlist de Spotify</label>
+                            <input asp-for="SpotifyPlaylistId" class="form-control" />
+                            <small class="text-muted">Ejemplo: 37i9dQZF1DX4SBhb3fqCJd</small>
+                        </div>
+
+                        <div class="text-end">
+                            <a asp-action="Admin" class="btn btn-secondary me-2">Cancelar</a>
+                            <button type="submit" class="btn text-white" 
+                                    style="background-color: #050653; border-radius: 12px; padding: 8px 24px;">
+                                Guardar Cambios
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+}
