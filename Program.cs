@@ -4,7 +4,7 @@ using mercharteria.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using mercharteria.Services;
-using System.Threading.Tasks;
+using mercharteria.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +27,9 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddSession();
+
+//Firebase Storage
+builder.Services.AddSingleton<FirebaseStorageHelper>();
 
 
 builder.Services.AddTransient<IEmailSender, DummyEmailSender>();

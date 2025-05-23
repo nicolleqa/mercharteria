@@ -1,16 +1,19 @@
 using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Storage.V1;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.IO;
-using System.Threading.Tasks;
+
 
 namespace mercharteria.Helpers
 {
     public class FirebaseStorageHelper
     {
-        private readonly string _bucketName = "merchanteria-f305c.firebasestorage.app"; //Reeemplzar por el nombre de tu bucket
-        private readonly string _rutaCredencialJson = "C:\\Users\\ABRAHAM\\Documents\\SEXTO CICLO USMP\\PROGRAMACIÓN I\\merchanteria-f305c-firebase-adminsdk-fbsvc-70e602fe1a.json"; // P.ej: "C:\\Credenciales\\firebase-key.json"
+        private readonly string? _bucketName;
+        private readonly string? _rutaCredencialJson;
+
+        public FirebaseStorageHelper(IConfiguration configuration)
+        {
+            _bucketName = configuration["Firebase:BucketName"];
+            _rutaCredencialJson = Path.Combine(Directory.GetCurrentDirectory(), configuration["Firebase:CredentialPath"]);
+        }
 
         public async Task<string> SubirImagenAutenticadoAsync(IFormFile file)
         {
@@ -34,7 +37,6 @@ namespace mercharteria.Helpers
             return $"https://firebasestorage.googleapis.com/v0/b/{_bucketName}/o/{Uri.EscapeDataString(nombreArchivo)}?alt=media";
         }
 
-        // Eliminar imagen
         public async Task EliminarImagenAsync(string imageUrl)
         {
             GoogleCredential credential;
@@ -45,20 +47,14 @@ namespace mercharteria.Helpers
 
             var storage = StorageClient.Create(credential);
 
-            // Extraer el nombre del archivo desde la URL
             var baseUrl = $"https://firebasestorage.googleapis.com/v0/b/{_bucketName}/o/";
             if (!imageUrl.StartsWith(baseUrl))
                 return;
 
             var nombreObjeto = imageUrl.Replace(baseUrl, "").Split("?")[0];
-            nombreObjeto = Uri.UnescapeDataString(nombreObjeto); // Decodificar caracteres especiales
+            nombreObjeto = Uri.UnescapeDataString(nombreObjeto);
 
             await storage.DeleteObjectAsync(_bucketName, nombreObjeto);
         }
-
-       
-
-
-
     }
 }
