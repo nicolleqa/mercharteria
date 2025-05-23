@@ -20,9 +20,11 @@ namespace mercharteria.Controllers
     {
         private readonly ILogger<ProductosController> _logger;
         private readonly ApplicationDbContext _context;
+        private readonly FirebaseStorageHelper _firebaseStorageHelper;
 
-        public ProductosController(ILogger<ProductosController> logger, ApplicationDbContext context)
+        public ProductosController(ILogger<ProductosController> logger, ApplicationDbContext context, FirebaseStorageHelper firebaseStorageHelper)
         {
+            _firebaseStorageHelper = firebaseStorageHelper;
             _logger = logger;
             _context = context;
         }
@@ -82,8 +84,8 @@ namespace mercharteria.Controllers
             {
                 if (producto.ImagenFile != null)
                 {
-                    var helper = new FirebaseStorageHelper();
-                    var url = await helper.SubirImagenAutenticadoAsync(producto.ImagenFile);
+                    
+                    var url = await _firebaseStorageHelper.SubirImagenAutenticadoAsync(producto.ImagenFile);
                     producto.ImagenUrl = url;
                 }
 
@@ -135,7 +137,7 @@ namespace mercharteria.Controllers
                         return NotFound();
                     }
 
-                    var helper = new FirebaseStorageHelper();
+                   
 
                     // Si se subió una nueva imagen
                     if (producto.ImagenFile != null)
@@ -143,11 +145,11 @@ namespace mercharteria.Controllers
                         //Eliminar imagen anterior de Firebase si existe
                         if (!string.IsNullOrEmpty(productoExistente.ImagenUrl))
                         {
-                            await helper.EliminarImagenAsync(productoExistente.ImagenUrl);
+                            await _firebaseStorageHelper.EliminarImagenAsync(productoExistente.ImagenUrl);
                         }
 
                         //Subir la nueva imagen y asignar URL
-                        var nuevaUrl = await helper.SubirImagenAutenticadoAsync(producto.ImagenFile);
+                        var nuevaUrl = await _firebaseStorageHelper.SubirImagenAutenticadoAsync(producto.ImagenFile);
                         producto.ImagenUrl = nuevaUrl;
                         
                     }
@@ -190,8 +192,8 @@ namespace mercharteria.Controllers
                 // Eliminar la imagen de Firebase
                 if (!string.IsNullOrEmpty(producto.ImagenUrl))
                 {
-                    var helper = new FirebaseStorageHelper();
-                    await helper.EliminarImagenAsync(producto.ImagenUrl);
+                   
+                    await _firebaseStorageHelper.EliminarImagenAsync(producto.ImagenUrl);
                 }
 
                 // Eliminar el producto de la base de datos
