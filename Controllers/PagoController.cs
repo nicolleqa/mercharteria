@@ -71,7 +71,7 @@ namespace mercharteria.Controllers
                 },
                 BackUrls = new PreferenceBackUrlsRequest
                 {
-                    Success = "https://localhost:7273/Success",
+                    Success = "https://localhost:5000/Pago/Confirmacion",
                     Failure = "https://localhost:7273/Failure",
                     Pending = "https://localhost:7273/Pending"
                 },

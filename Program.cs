@@ -30,10 +30,10 @@ var credentials = new Dictionary<string, string>
 };
 
 // Inicializar Firebase
-FirebaseApp.Create(new AppOptions
+/* FirebaseApp.Create(new AppOptions
 {
     Credential = GoogleCredential.FromJson(System.Text.Json.JsonSerializer.Serialize(credentials))
-});
+}); */
 builder.Services.AddSingleton<FirestoreService>();
 
 
