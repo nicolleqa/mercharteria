@@ -1,17 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using mercharteria.Models;
-using mercharteria.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using mercharteria.Models;
+using mercharteria.Data;
 using mercharteria.Helpers;
-using mercharteria.Services;
 
 namespace mercharteria.Controllers
 {
@@ -19,10 +13,20 @@ namespace mercharteria.Controllers
     public class PersonajesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly FirebaseStorageHelper _firebaseStorageHelper;
 
-        public PersonajesController(ApplicationDbContext context)
+        public PersonajesController(
+            ApplicationDbContext context,
+            FirebaseStorageHelper firebaseStorageHelper)
         {
             _context = context;
+            _firebaseStorageHelper = firebaseStorageHelper;
+        }
+
+        public async Task<IActionResult> Admin()
+        {
+            var personajes = await _context.Personajes.ToListAsync();
+            return View(personajes);
         }
 
         public IActionResult Create()
@@ -38,67 +42,22 @@ namespace mercharteria.Controllers
             {
                 if (personaje.ImagenFile != null)
                 {
-                    var helper = new FirebaseStorageHelper();
-                    personaje.Imagen = await helper.SubirImagenAutenticadoAsync(personaje.ImagenFile);
+                    personaje.Imagen = await _firebaseStorageHelper.SubirImagenAutenticadoAsync(personaje.ImagenFile);
                 }
 
                 if (personaje.BannerFile != null)
                 {
-                    var helper = new FirebaseStorageHelper();
-                    personaje.BannerUrl = await helper.SubirImagenAutenticadoAsync(personaje.BannerFile);
+                    personaje.BannerUrl = await _firebaseStorageHelper.SubirImagenAutenticadoAsync(personaje.BannerFile);
                 }
 
                 _context.Add(personaje);
                 await _context.SaveChangesAsync();
                 TempData["Message"] = "Personaje creado correctamente.";
-                return RedirectToAction("Admin");
+                return RedirectToAction(nameof(Admin));
             }
             return View(personaje);
         }
 
-        [Authorize(Roles = "Administrador")]
-        public async Task<IActionResult> Admin()
-        {
-            var personajes = await _context.Personajes.ToListAsync();
-            return View(personajes);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var personaje = await _context.Personajes.FindAsync(id);
-            if (personaje == null)
-            {
-                return NotFound();
-            }
-
-            try
-            {
-                if (!string.IsNullOrEmpty(personaje.Imagen))
-                {
-                    var helper = new FirebaseStorageHelper();
-                    await helper.EliminarImagenAsync(personaje.Imagen);
-                }
-                if (!string.IsNullOrEmpty(personaje.BannerUrl))
-                {
-                    var helper = new FirebaseStorageHelper();
-                    await helper.EliminarImagenAsync(personaje.BannerUrl);
-                }
-
-                _context.Personajes.Remove(personaje);
-                await _context.SaveChangesAsync();
-                TempData["Message"] = "Personaje eliminado correctamente.";
-            }
-            catch (Exception)
-            {
-                TempData["Error"] = "No se puede eliminar el personaje.";
-            }
-
-            return RedirectToAction(nameof(Admin));
-        }
-        
-        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(int id)
         {
             var personaje = await _context.Personajes.FindAsync(id);
@@ -124,22 +83,20 @@ namespace mercharteria.Controllers
                 {
                     if (personaje.ImagenFile != null)
                     {
-                        var helper = new FirebaseStorageHelper();
                         if (!string.IsNullOrEmpty(personaje.Imagen))
                         {
-                            await helper.EliminarImagenAsync(personaje.Imagen);
+                            await _firebaseStorageHelper.EliminarImagenAsync(personaje.Imagen);
                         }
-                        personaje.Imagen = await helper.SubirImagenAutenticadoAsync(personaje.ImagenFile);
+                        personaje.Imagen = await _firebaseStorageHelper.SubirImagenAutenticadoAsync(personaje.ImagenFile);
                     }
 
                     if (personaje.BannerFile != null)
                     {
-                        var helper = new FirebaseStorageHelper();
                         if (!string.IsNullOrEmpty(personaje.BannerUrl))
                         {
-                            await helper.EliminarImagenAsync(personaje.BannerUrl);
+                            await _firebaseStorageHelper.EliminarImagenAsync(personaje.BannerUrl);
                         }
-                        personaje.BannerUrl = await helper.SubirImagenAutenticadoAsync(personaje.BannerFile);
+                        personaje.BannerUrl = await _firebaseStorageHelper.SubirImagenAutenticadoAsync(personaje.BannerFile);
                     }
 
                     _context.Update(personaje);
@@ -160,6 +117,39 @@ namespace mercharteria.Controllers
                 }
             }
             return View(personaje);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var personaje = await _context.Personajes.FindAsync(id);
+            if (personaje == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                if (!string.IsNullOrEmpty(personaje.Imagen))
+                {
+                    await _firebaseStorageHelper.EliminarImagenAsync(personaje.Imagen);
+                }
+                if (!string.IsNullOrEmpty(personaje.BannerUrl))
+                {
+                    await _firebaseStorageHelper.EliminarImagenAsync(personaje.BannerUrl);
+                }
+
+                _context.Personajes.Remove(personaje);
+                await _context.SaveChangesAsync();
+                TempData["Message"] = "Personaje eliminado correctamente.";
+            }
+            catch (Exception)
+            {
+                TempData["Error"] = "No se puede eliminar el personaje.";
+            }
+
+            return RedirectToAction(nameof(Admin));
         }
 
         private bool PersonajeExists(int id)

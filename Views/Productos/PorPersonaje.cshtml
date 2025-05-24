@@ -151,14 +151,14 @@
                     @Html.AntiForgeryToken()
                     <input type="hidden" name="productId" value="@item.Id" />
                     <input type="hidden" name="cantidad" value="1" />
-                    <div style="display: flex; justify-content: center; gap: 10px; margin-top: 10px;">
+                    @* <div style="display: flex; justify-content: center; gap: 10px; margin-top: 10px;">
                         <button type="button" class="btn me-3 agregar-carrito" 
                                 style="background-color: transparent; border-radius: 20px; 
                                 border: 1px solid #050653; color: #050653;" 
                                 data-id="@item.Id">
                             Agregar carrito
                         </button>
-                    </div>
+                    </div> *@
                 </form>
             </div>
         }
