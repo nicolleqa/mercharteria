@@ -7,8 +7,35 @@ using mercharteria.Services;
 using System.Threading.Tasks;
 using mercharteria.Config;
 using mercharteria.Helpers;
+using DotNetEnv;
+using FirebaseAdmin;
+using FirebaseAdmin.Auth;
+using Google.Apis.Auth.OAuth2;
+using Google.Cloud.Firestore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Cargar variables de entorno
+Env.Load();
+
+// Crear el objeto de credenciales de Firebase
+var credentials = new Dictionary<string, string>
+{
+    { "type", "service_account" },
+    { "project_id", Environment.GetEnvironmentVariable("FIREBASE_PROJECT_ID") },
+    { "private_key_id", Environment.GetEnvironmentVariable("FIREBASE_PRIVATE_KEY_ID") },
+    { "private_key", Environment.GetEnvironmentVariable("FIREBASE_PRIVATE_KEY") },
+    { "client_email", Environment.GetEnvironmentVariable("FIREBASE_CLIENT_EMAIL") },
+    { "client_id", Environment.GetEnvironmentVariable("FIREBASE_CLIENT_ID") }
+};
+
+// Inicializar Firebase
+FirebaseApp.Create(new AppOptions
+{
+    Credential = GoogleCredential.FromJson(System.Text.Json.JsonSerializer.Serialize(credentials))
+});
+builder.Services.AddSingleton<FirestoreService>();
+
 
 // Add services to the container
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -159,6 +186,14 @@ app.MapGet("/", async context =>
         }
     }
 });
+
+
+
+
+
+
+
+
 
 app.MapControllerRoute(
     name: "default",

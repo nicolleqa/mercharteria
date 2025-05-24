@@ -9,6 +9,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using mercharteria.Data;
+using Microsoft.Extensions.Configuration;
+using MercadoPago.Config;
+using MercadoPago.Client.Preference;
+using MercadoPago.Resource.Preference;
+
 
 namespace mercharteria.Controllers
 {
@@ -17,14 +22,21 @@ namespace mercharteria.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<PagoController> _logger;
         private readonly ApplicationDbContext _context;
+        private readonly IConfiguration _configuration;
 
-        public PagoController(ILogger<PagoController> logger,
+        public PagoController(
+            ILogger<PagoController> logger,
             UserManager<IdentityUser> userManager,
-            ApplicationDbContext context)
+            ApplicationDbContext context,
+            IConfiguration configuration)
         {
             _logger = logger;
             _userManager = userManager;
             _context = context;
+            _configuration = configuration;
+
+            // Inicializar MercadoPago con AccessToken
+            MercadoPagoConfig.AccessToken = _configuration["MercadoPago:AccessToken"];
         }
 
         public IActionResult Index()
@@ -32,78 +44,46 @@ namespace mercharteria.Controllers
             return View();
         }
 
-        public IActionResult Create(decimal monto)
+        public async Task<IActionResult> Create(decimal monto)
         {
+            var userName = _userManager.GetUserName(User);
             var pago = new Pago
             {
-                UserName = _userManager.GetUserName(User),
+                UserName = userName,
                 MontoTotal = monto
             };
+
             _logger.LogInformation("El monto total es: " + pago.MontoTotal.ToString());
 
-            return View(pago);
-        }
-
-        [HttpPost]
-public IActionResult Pagar(Pago pago)
-{
-    pago.FechaPago = DateTime.UtcNow;
-    pago.Estado = "Cancelado";
-
-    // Buscar el último DatosCliente registrado para este usuario
-    var datosCliente = _context.DatosClientes
-        .OrderByDescending(d => d.Id)
-        .FirstOrDefault();
-
-    pago.DatosCliente = datosCliente;
-
-    _context.Add(pago);
-    _context.SaveChanges();
-
-
-            var itemsCarrito = _context.DbSetPreOrden
-                .Include(p => p.Producto)
-                .Where(s => s.UserName == pago.UserName && s.Estado == "PENDIENTE")
-                .ToList();
-
-            var pedido = new Orden
+            // Crear preferencia en MercadoPago
+            var preferenceClient = new PreferenceClient();
+            var request = new PreferenceRequest
             {
-                UserName = pago.UserName,
-                Total = pago.MontoTotal,
-                Fecha = DateTime.UtcNow,
-                Estado = "Pendiente",
-                PagoId = pago.Id
+                Items = new List<PreferenceItemRequest>
+                {
+                    new PreferenceItemRequest
+                    {
+                        Title = "Pago de pedido",
+                        Quantity = 1,
+                        CurrencyId = "PEN",
+                        UnitPrice = monto
+                    }
+                },
+                BackUrls = new PreferenceBackUrlsRequest
+                {
+                    Success = "https://localhost:7273/Success",
+                    Failure = "https://localhost:7273/Failure",
+                    Pending = "https://localhost:7273/Pending"
+                },
+
+                AutoReturn = "approved"
             };
-            _context.Add(pedido);
-            _context.SaveChanges();
 
-            var detalles = itemsCarrito.Select(item => new DetalleOrden
-            {
-                OrdenId = pedido.Id,
-                ProductoId = item.Producto.Id,
-                Precio = item.Precio,
-                Cantidad = item.Cantidad,
-                Subtotal = item.Precio * item.Cantidad
-            }).ToList();
-            _context.AddRange(detalles);
-
-            foreach (var p in itemsCarrito)
-            {
-                p.Estado = "Pagado";
-            }
-            _context.UpdateRange(itemsCarrito);
-            _context.SaveChanges();
-
-            return RedirectToAction("Confirmacion", new { id = pago.Id });
-        }
-
-        public IActionResult Confirmacion(int id)
-        {
-            var pago = _context.DbSetPago.FirstOrDefault(p => p.Id == id);
-            if (pago == null)
-                return RedirectToAction("Error");
-
-            return View(pago);
+            Preference preference = await preferenceClient.CreateAsync(request);
+            ViewBag.PreferenceId = preference.Id;
+            ViewBag.PublicKey = _configuration["MercadoPago:PublicKey"];
+            return Redirect(preference.SandboxInitPoint);
+            //return View(pago);
         }
 
         public IActionResult DatosCliente(decimal monto)
@@ -121,29 +101,45 @@ public IActionResult Pagar(Pago pago)
             return View(modelo);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> DatosCliente(DatosCliente datos)
+        // [HttpPost]
+        // public async Task<IActionResult> DatosCliente(DatosCliente datos)
+        // {
+        //     if (!ModelState.IsValid)
+        //     {
+        //         return View(datos);
+        //     }
+
+        //     _context.DatosClientes.Add(datos);
+        //     await _context.SaveChangesAsync();
+
+        //     TempData["NombreCompleto"] = datos.NombreCompleto;
+        //     TempData["Correo"] = datos.Correo;
+        //     TempData["Direccion"] = datos.Direccion;
+        //     TempData["Referencia"] = datos.Referencia;
+
+        //     return RedirectToAction("Create", new { monto = datos.Monto });
+        // }
+
+        public IActionResult Confirmacion()
         {
-            if (!ModelState.IsValid)
-            {
-                return View(datos);
-            }
-
-            _context.DatosClientes.Add(datos);
-            await _context.SaveChangesAsync();
-
-            TempData["NombreCompleto"] = datos.NombreCompleto;
-            TempData["Correo"] = datos.Correo;
-            TempData["Direccion"] = datos.Direccion;
-            TempData["Referencia"] = datos.Referencia;
-
-            return RedirectToAction("Create", new { monto = datos.Monto });
+            // Aquí podrías buscar y mostrar el pago por ID si es necesario
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View("Error");
+        }
+
+        private string obtenerAccessToken()
+        {
+            return _configuration["MercadoPago:AccessToken"] ?? string.Empty;
+        }
+
+        private string obtenerPublicKey()
+        {
+            return _configuration["MercadoPago:PublicKey"] ?? string.Empty;
         }
     }
 }
