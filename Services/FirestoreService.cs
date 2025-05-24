@@ -18,7 +18,7 @@ public class FirestoreService
             ""type"": ""service_account"",
             ""project_id"": ""{Environment.GetEnvironmentVariable("RENDER_FIREBASE_PROJECT_ID")}"",
             ""private_key_id"": ""{Environment.GetEnvironmentVariable("RENDER_FIREBASE_PRIVATE_KEY_ID")}"",
-            ""private_key"": ""{Environment.GetEnvironmentVariable("RENDER_FIREBASE_PRIVATE_KEY")?.Replace("\\n", "\n")}"",
+            ""private_key"": ""{Environment.GetEnvironmentVariable("RENDER_FIREBASE_PRIVATE_KEY")}"",
             ""client_email"": ""{Environment.GetEnvironmentVariable("RENDER_FIREBASE_CLIENT_EMAIL")}"",
             ""client_id"": ""{Environment.GetEnvironmentVariable("RENDER_FIREBASE_CLIENT_ID")}"",
             ""auth_uri"": ""https://accounts.google.com/o/oauth2/auth"",
