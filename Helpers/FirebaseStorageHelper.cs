@@ -22,15 +22,15 @@ namespace mercharteria.Helpers
             var credentialJson = $@"
             {{
                 ""type"": ""service_account"",
-                ""project_id"": ""{Environment.GetEnvironmentVariable("FIREBASE_PROJECT_ID")}"",
-                ""private_key_id"": ""{Environment.GetEnvironmentVariable("FIREBASE_PRIVATE_KEY_ID")}"",
-                ""private_key"": ""{Environment.GetEnvironmentVariable("FIREBASE_PRIVATE_KEY")?.Replace("\\n", "\n")}"",
-                ""client_email"": ""{Environment.GetEnvironmentVariable("FIREBASE_CLIENT_EMAIL")}"",
-                ""client_id"": ""{Environment.GetEnvironmentVariable("FIREBASE_CLIENT_ID")}"",
+                ""project_id"": ""{Environment.GetEnvironmentVariable("RENDER_FIREBASE_PROJECT_ID")}"",
+                ""private_key_id"": ""{Environment.GetEnvironmentVariable("RENDER_FIREBASE_PRIVATE_KEY_ID")}"",
+                ""private_key"": ""{Environment.GetEnvironmentVariable("RENDER_FIREBASE_PRIVATE_KEY")?.Replace("\\n", "\n")}"",
+                ""client_email"": ""{Environment.GetEnvironmentVariable("RENDER_FIREBASE_CLIENT_EMAIL")}"",
+                ""client_id"": ""{Environment.GetEnvironmentVariable("RENDER_FIREBASE_CLIENT_ID")}"",
                 ""auth_uri"": ""https://accounts.google.com/o/oauth2/auth"",
                 ""token_uri"": ""https://oauth2.googleapis.com/token"",
                 ""auth_provider_x509_cert_url"": ""https://www.googleapis.com/oauth2/v1/certs"",
-                ""client_x509_cert_url"": ""https://www.googleapis.com/robot/v1/metadata/x509/{Uri.EscapeDataString(Environment.GetEnvironmentVariable("FIREBASE_CLIENT_EMAIL") ?? "")}""
+                ""client_x509_cert_url"": ""https://www.googleapis.com/robot/v1/metadata/x509/{Uri.EscapeDataString(Environment.GetEnvironmentVariable("RENDER_FIREBASE_CLIENT_EMAIL") ?? "")}""
             }}";
 
             

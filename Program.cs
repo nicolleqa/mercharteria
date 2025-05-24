@@ -22,18 +22,18 @@ Env.Load();
 var credentials = new Dictionary<string, string>
 {
     { "type", "service_account" },
-    { "project_id", Environment.GetEnvironmentVariable("FIREBASE_PROJECT_ID") },
-    { "private_key_id", Environment.GetEnvironmentVariable("FIREBASE_PRIVATE_KEY_ID") },
-    { "private_key", Environment.GetEnvironmentVariable("FIREBASE_PRIVATE_KEY") },
-    { "client_email", Environment.GetEnvironmentVariable("FIREBASE_CLIENT_EMAIL") },
-    { "client_id", Environment.GetEnvironmentVariable("FIREBASE_CLIENT_ID") }
+    { "project_id", Environment.GetEnvironmentVariable("RENDER_FIREBASE_PROJECT_ID") },
+    { "private_key_id", Environment.GetEnvironmentVariable("RENDER_FIREBASE_PRIVATE_KEY_ID") },
+    { "private_key", Environment.GetEnvironmentVariable("RENDER_FIREBASE_PRIVATE_KEY") },
+    { "client_email", Environment.GetEnvironmentVariable("RENDER_FIREBASE_CLIENT_EMAIL") },
+    { "client_id", Environment.GetEnvironmentVariable("RENDER_FIREBASE_CLIENT_ID") }
 };
 
 // Inicializar Firebase
-/* FirebaseApp.Create(new AppOptions
+FirebaseApp.Create(new AppOptions
 {
     Credential = GoogleCredential.FromJson(System.Text.Json.JsonSerializer.Serialize(credentials))
-}); */
+}); 
 builder.Services.AddSingleton<FirestoreService>();
 
 
