@@ -20,6 +20,7 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<DatosCliente> DatosClientes { get; set; }
     public DbSet<Testimonio> Testimonios { get; set; }
     public DbSet<Personaje> Personajes { get; set; }
+    public DbSet<ProductoPersonaje> ProductoPersonajes { get; set; }
 
     public DbSet<Categoria> Categorias { get; set; }
 
@@ -42,7 +43,7 @@ public class ApplicationDbContext : IdentityDbContext
             .WithMany(c => c.Productos)
             .HasForeignKey(p => p.CategoriaId);
 
-         // 1 Orden tiene muchos DetalleOrden
+        // 1 Orden tiene muchos DetalleOrden
         modelBuilder.Entity<Orden>()
             .HasMany(o => o.Detalles)
             .WithOne(d => d.Orden!)
@@ -59,6 +60,19 @@ public class ApplicationDbContext : IdentityDbContext
             .HasOne(o => o.DatosCliente)
             .WithMany()
             ;    
+            
+        modelBuilder.Entity<ProductoPersonaje>()
+        .HasKey(pp => new { pp.ProductoId, pp.PersonajeId });
+
+        modelBuilder.Entity<ProductoPersonaje>()
+            .HasOne(pp => pp.Producto)
+            .WithMany()
+            .HasForeignKey(pp => pp.ProductoId);
+
+        modelBuilder.Entity<ProductoPersonaje>()
+            .HasOne(pp => pp.Personaje)
+            .WithMany()
+            .HasForeignKey(pp => pp.PersonajeId);
     }
 }
 

@@ -44,6 +44,17 @@
                     <span asp-validation-for="CategoriaId" class="text-danger small"></span>
                 </div>
 
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Personajes</label>
+                    <select name="PersonajeIds" multiple class="form-select rounded-3 shadow-sm" 
+                            data-placeholder="Seleccione los personajes">
+                        @foreach (var personaje in ViewBag.Personajes)
+                        {
+                            <option value="@personaje.Value">@personaje.Text</option>
+                        }
+                    </select>
+                </div>
+
                 <div class="mb-4">
                     <label asp-for="ImagenFile" class="form-label fw-semibold">Imagen</label>
                     <input asp-for="ImagenFile" type="file" class="form-control rounded-3 shadow-sm" accept="image/*" />
@@ -72,5 +83,16 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     
-   
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('select[name="PersonajeIds"]').select2({
+                theme: "classic",
+                width: '100%',
+                placeholder: "Seleccione los personajes",
+                allowClear: true
+            });
+        });
+    </script>
 }
