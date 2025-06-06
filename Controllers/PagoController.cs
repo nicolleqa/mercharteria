@@ -120,18 +120,11 @@ namespace mercharteria.Controllers
         //     return RedirectToAction("Create", new { monto = datos.Monto });
         // }
 
-         public IActionResult Confirmacion(string payment_id, string status, string payment_type, string merchant_order_id)
+         public IActionResult Confirmacion()
         {
-            ViewBag.PaymentId = payment_id;
-            ViewBag.Status = status;
-            ViewBag.PaymentType = payment_type;
-            ViewBag.MerchantOrderId = merchant_order_id;
             return View();
         }
-
-
-
-
+        
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

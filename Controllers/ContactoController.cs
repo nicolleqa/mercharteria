@@ -9,6 +9,7 @@ using mercharteria.Models;
 using mercharteria.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using mercharteria.ML;
 
 namespace mercharteria.Controllers
 {
@@ -31,6 +32,30 @@ namespace mercharteria.Controllers
         {
             if (ModelState.IsValid)
             {
+                
+                // Aquí puedes realizar el análisis de sentimiento del mensaje
+                var sampleData = new MLModelSentimentalAnalysis.ModelInput()
+                {
+                    Comentario = contacto.Mensaje,
+                };
+
+                //Load model and predict output
+                var result = MLModelSentimentalAnalysis.Predict(sampleData);
+                var predictedLabel = result.PredictedLabel;
+                var scorePositive = result.Score[0];
+                var scoreNegative = result.Score[1];
+                //Check if the result is positive or negative
+                if (predictedLabel == "1")
+                {
+                    contacto.Etiqueta = "Positivo";
+                    contacto.Puntuacion = scorePositive;
+                }
+                else
+                {
+                    contacto.Etiqueta = "Negativo";
+                    contacto.Puntuacion = scoreNegative;
+                }
+
                 contacto.FechaEnvio = DateTime.UtcNow; 
                 _context.Contactos.Add(contacto);
                 await _context.SaveChangesAsync();
@@ -40,6 +65,9 @@ namespace mercharteria.Controllers
             }
             return View("Index", contacto);
         }
+
+
+
 
         [Authorize(Roles = "Administrador")]
         public IActionResult Admin()

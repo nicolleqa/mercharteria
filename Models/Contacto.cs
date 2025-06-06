@@ -16,6 +16,10 @@ namespace mercharteria.Models
         [Required(ErrorMessage = "El mensaje es requerido")]
         public string? Mensaje { get; set; }
 
+        public string? Etiqueta { get; set; }
+        public float Puntuacion { get; set; }
+
+
         [DataType(DataType.DateTime)]
         public DateTime FechaEnvio { get; set; } = DateTime.Now;
     }
