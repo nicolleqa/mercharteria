@@ -25,6 +25,7 @@
                             <th>Nombre</th>
                             <th>Email</th>
                             <th>Mensaje</th>
+                            <th>Etiqueta</th>
                             <th>Fecha</th>
                             <th>Acciones</th>
                         </tr>
@@ -45,6 +46,8 @@
                                         @item.Mensaje
                                     }
                                 </td>
+                                <td>@item.Etiqueta</td>
+
                                 <td>@TimeZoneInfo.ConvertTimeBySystemTimeZoneId(item.FechaEnvio, "SA Pacific Standard Time").ToString("dd/MM/yyyy HH:mm")</td>
                                 <td>
                                     <a href="mailto:@item.Email?subject=Respuesta a tu mensaje&body=Hola @item.Nombre, gracias por contactarnos."   
