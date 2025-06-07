@@ -1,8 +1,55 @@
-
 @{
     ViewData["Title"] = "Confirmación de Pago";
 }
 
-<h2>¡Pago realizado!</h2>
+<style>
+    .modal-bg {
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+    }
+    .modal-content {
+        background: #fff;
+        padding: 2rem 2.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+        text-align: center;
+        min-width: 320px;
+    }
+    .modal-content h2 {
+        color:  #050653; 
+        margin-bottom: 1rem;
+    }
+    .modal-content button {
+        margin-top: 1.5rem;
+        padding: 0.7rem 2rem;
+        background: #050653; 
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+    .modal-content button:hover {
+        background:  #050653; 
+    }
+</style>
 
-    
+<div class="modal-bg" id="modalConfirmacion">
+    <div class="modal-content">
+        <h2>¡Pago realizado!</h2>
+        <p>Gracias por tu compra. Tu pago ha sido procesado exitosamente.</p>
+        <button onclick="seguirComprando()">Seguir comprando</button>
+    </div>
+</div>
+
+<script>
+    function seguirComprando() {
+        window.location.href = '/Productos'; // Cambia la ruta si quieres ir a otra página
+    }
+</script>
