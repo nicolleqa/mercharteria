@@ -12,6 +12,7 @@ using FirebaseAdmin;
 using FirebaseAdmin.Auth;
 using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Firestore;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -81,6 +82,23 @@ builder.Services.ConfigureApplicationCookie(options =>
         }
     };
 });
+
+
+// API Documentation
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+  c.SwaggerDoc("v1", new OpenApiInfo
+  {
+    Title = "API",
+    Version = "v1",
+    Description = "Descripción de la API"
+  });
+});
+
+
+
+
 
 var app = builder.Build();
 
@@ -163,6 +181,15 @@ app.UseRouting();
 app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
+
+
+app.UseSwagger();
+
+app.UseSwaggerUI(c =>
+{
+  c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
+});
+
 
 // Configure role-based routing
 app.MapGet("/", async context =>
