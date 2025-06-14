@@ -120,9 +120,28 @@ namespace mercharteria.Controllers
         //     return RedirectToAction("Create", new { monto = datos.Monto });
         // }
 
-         public IActionResult Confirmacion()
+        public IActionResult Confirmacion()
         {
+            // Obtener el usuario actual
+            var userName = _userManager.GetUserName(User);
+
+            if (!string.IsNullOrEmpty(userName))
+            {
+                // Buscar los pre-órdenes pendientes de ese usuario
+                var preordenes = _context.Set<PreOrden>()
+                    .Where(p => p.UserName == userName && p.Estado == "PENDIENTE")
+                    .ToList();
+
+                // Eliminar del carrito (puedes usar RemoveRange)
+                if (preordenes.Any())
+                {
+                    _context.RemoveRange(preordenes);
+                    _context.SaveChanges();
+                }
+            }
+
             return View();
+   
         }
         
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
