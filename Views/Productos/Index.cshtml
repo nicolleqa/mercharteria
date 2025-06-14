@@ -25,7 +25,7 @@
           <img src="@item.ImagenUrl" alt="@item.Nombre">
           <h5 class="card-title">@item.Nombre</h5>
           <p class="card-text">@item.Descripcion</p>
-          <p class="card-text"><strong>@item.Precio.ToString("C")</strong></p>
+          <p class="card-text"><strong>S/ @item.Precio</strong></p>
 
           <form asp-controller="Cart" asp-action="AddToCart" method="post">
               @Html.AntiForgeryToken()
