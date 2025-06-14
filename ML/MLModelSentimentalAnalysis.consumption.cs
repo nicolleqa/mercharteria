@@ -52,7 +52,8 @@ namespace mercharteria.ML
 
         #endregion
 
-        private static string MLNetModelPath = Path.GetFullPath("MLModelSentimentalAnalysis.mlnet");
+        private static string MLNetModelPath = Path.GetFullPath("ML/MLModelSentimentalAnalysis.mlnet");
+        // private static string MLNetModelPath = Path.Combine(AppContext.BaseDirectory, "ML", "MLModelSentimentalAnalysis.mlnet");
 
         public static readonly Lazy<PredictionEngine<ModelInput, ModelOutput>> PredictEngine = new Lazy<PredictionEngine<ModelInput, ModelOutput>>(() => CreatePredictEngine(), true);
 
