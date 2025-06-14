@@ -119,7 +119,6 @@ namespace mercharteria.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
             var personaje = await _context.Personajes.FindAsync(id);
@@ -130,22 +129,13 @@ namespace mercharteria.Controllers
 
             try
             {
-                if (!string.IsNullOrEmpty(personaje.Imagen))
-                {
-                    await _firebaseStorageHelper.EliminarImagenAsync(personaje.Imagen);
-                }
-                if (!string.IsNullOrEmpty(personaje.BannerUrl))
-                {
-                    await _firebaseStorageHelper.EliminarImagenAsync(personaje.BannerUrl);
-                }
-
                 _context.Personajes.Remove(personaje);
                 await _context.SaveChangesAsync();
                 TempData["Message"] = "Personaje eliminado correctamente.";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                TempData["Error"] = "No se puede eliminar el personaje.";
+                TempData["Error"] = "No se puede eliminar el personaje. " + ex.Message;
             }
 
             return RedirectToAction(nameof(Admin));
