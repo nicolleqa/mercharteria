@@ -10,7 +10,7 @@ using Microsoft.ML.Data;
 using Microsoft.ML.Trainers;
 using Microsoft.ML.Trainers.LightGbm;
 
-namespace mercharteria.ML
+namespace mercharteria.ML      
 {
     public partial class MLModelSentimentalAnalysis
     {

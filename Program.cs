@@ -57,6 +57,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddSession();
+builder.Services.AddControllers();
 // ...existing code...
 builder.Services.Configure<SpotifyConfig>(
     builder.Configuration.GetSection("Spotify"));
@@ -90,7 +91,7 @@ builder.Services.AddSwaggerGen(c =>
 {
   c.SwaggerDoc("v1", new OpenApiInfo
   {
-    Title = "API",
+    Title = " Arteria Merch API",
     Version = "v1",
     Description = "Descripción de la API"
   });
@@ -181,7 +182,7 @@ app.UseRouting();
 app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.MapControllers();
 
 app.UseSwagger();
 

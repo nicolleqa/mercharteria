@@ -1,0 +1,16 @@
+GET http://localhost:5000/api/ProductosApi
+Content-Type: application/json
+
+GET http://localhost:5000/api/PagoApi/2457670190-8470c927-9db0-4b85-86c4-c0db01e6571c
+
+Content-Type: application/json
+
+POST http://localhost:5000/api/PagoApi
+Content-Type: application/json
+
+{
+  "monto": 150.00,
+  "urlExito": "https://localhost:7299/Pago/Confirmacion",
+  "urlFallo": "https://localhost:7273/Failure",
+  "urlPendiente": "https://localhost:7273/Pending"
+}
