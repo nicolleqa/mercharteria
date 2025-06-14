@@ -18,7 +18,6 @@ namespace mercharteria.Models
         [StringLength(100)]
         public string? Nombre { get; set; }
 
-        [Required]
         public string? Imagen { get; set; }
 
         [NotMapped]

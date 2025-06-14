@@ -35,7 +35,6 @@ namespace mercharteria.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Personaje personaje)
         {
             if (ModelState.IsValid)
