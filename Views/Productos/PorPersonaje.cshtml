@@ -120,16 +120,6 @@
     </div>
 }
 
-<div class="categoria-filter">
-    <select id="categoriaFilter" class="form-select" onchange="filterByCategory(this.value)">
-        <option value="0">Todas las categorías</option>
-        @foreach (var categoria in ViewBag.Categorias)
-        {
-            <option value="@categoria.Id">@categoria.Nombre</option>
-        }
-    </select>
-</div>
-
 <div class="productos-container">
     @if (!Model.Any())
     {
