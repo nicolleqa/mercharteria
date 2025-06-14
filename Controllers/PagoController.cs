@@ -71,7 +71,7 @@ namespace mercharteria.Controllers
                 },
                 BackUrls = new PreferenceBackUrlsRequest
                 {
-                    Success = $"https://localhost:7299/Pago/Confirmacion",
+                    Success = "https://arteriamerch.onrender.com/Pago/Confirmacion",
                     Failure = $"https://localhost:7273/Failure",
                     Pending = $"https://localhost:7273/Pending"
                 },
