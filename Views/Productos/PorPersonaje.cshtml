@@ -120,16 +120,6 @@
     </div>
 }
 
-<div class="categoria-filter">
-    <select id="categoriaFilter" class="form-select" onchange="filterByCategory(this.value)">
-        <option value="0">Todas las categorías</option>
-        @foreach (var categoria in ViewBag.Categorias)
-        {
-            <option value="@categoria.Id">@categoria.Nombre</option>
-        }
-    </select>
-</div>
-
 <div class="productos-container">
     @if (!Model.Any())
     {
@@ -145,7 +135,7 @@
                 <img src="@item.ImagenUrl" alt="@item.Nombre">
                 <h5>@item.Nombre</h5>
                 <p class="text-muted">@item.Descripcion</p>
-                <p class="precio">@item.Precio.ToString("C")</p>
+                <p class="precio">S/ @item.Precio</p>
 
                 <form asp-controller="Cart" asp-action="AddToCart" method="post">
                     @Html.AntiForgeryToken()

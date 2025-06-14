@@ -74,11 +74,6 @@
         
         <ul class="sidebar-menu">
             <li>
-                <a href="~/Dashboard/Admin">
-                    <i class="bi bi-speedometer2"></i> Dashboard
-                </a>
-            </li>
-            <li>
                 <a asp-controller="Orden" asp-action="Admin">
                     <i class="bi bi-cart"></i> Órdenes
                 </a>
@@ -106,11 +101,6 @@
         </ul>
 
         <ul class="sidebar-menu bottom-menu">
-            <li>
-                <a asp-controller="Admin" asp-action="Account">
-                    <i class="bi bi-person"></i> Mi Cuenta
-                </a>
-            </li>
             <li>
                 <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                     <button type="submit" class="btn w-100 text-start" style="color: white; padding: 15px 20px;">

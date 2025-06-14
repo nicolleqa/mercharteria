@@ -14,10 +14,10 @@
         <div class="col-md-6">
             <h2 class="mb-3">@Model.Nombre</h2>
             <p class="mb-4">@Model.Descripcion</p>
-            <h4 class="mb-3">@Model.Precio.ToString("C")</h4>
+            <h4 class="mb-3">S/ @Model.Precio</h4>
 
             <div class="d-flex mb-4">
-              <form asp-controller="Carrito" asp-action="Add" method="post" class="d-flex justify-content-between align-items-center w-100">
+              <form id="addToCartForm" asp-controller="Carrito" asp-action="Add" method="post" class="d-flex justify-content-between align-items-center w-100">
                   <input type="hidden" name="id" value="@Model.Id" />
                   <div class="d-flex align-items-center">
                       <button type="button" class="btn" style="background-color: transparent; border-radius: 8px; border: 2px solid #050653; color: #050653; font-weight: bold;" onclick="decrementQuantity()">-</button>
@@ -34,7 +34,50 @@
     </div>
 </div>
 
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center p-4" style="border-radius: 18px;">
+      <div class="modal-body">
+        <div class="mb-3">
+          <span style="font-size: 60px; color: #198754;">
+            <i class="bi bi-check-circle-fill"></i>
+          </span>
+        </div>
+        <h4 class="mb-2" style="color: #050653;">¡Producto agregado!</h4>
+        <p id="successModalBody" class="mb-4" style="color: #333;">El producto fue agregado al carrito correctamente.</p>
+        <button type="button" class="btn px-4 text-white" data-bs-dismiss="modal" style="background-color: #050653; border-radius: 12px; padding: 10px 30px;">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
+    document.getElementById('addToCartForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var form = e.target;
+        var formData = new FormData(form);
+
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                document.getElementById('successModalBody').innerText = data.message;
+                var modal = new bootstrap.Modal(document.getElementById('successModal'));
+                modal.show();
+            }
+        })
+        .catch(error => {
+            alert('Ocurrió un error al agregar el producto al carrito.');
+        });
+    });
+
     function incrementQuantity() {
         var input = document.getElementById('quantity');
         input.value = parseInt(input.value) + 1;
